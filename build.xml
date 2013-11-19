@@ -8,8 +8,9 @@
     <delete dir="${build}"/>
   </target>
 
-  <target name="init" depends="clear">
+  <target name="init" depends="clean">
     <mkdir dir="${build}"/>
+    <mkdir dir="${build}/classes"/>
   </target>
 
   <target name="compile" depends="init">
@@ -17,7 +18,7 @@
   </target>
 
   <target name="jar" depends="compile">
-    <jar jarfile="${build}/jcurses.jar" basedir="${build}"/>
+    <jar jarfile="${build}/jcurses.jar" basedir="${build}/classes"/>
   </target>
 
 </project>

@@ -12,7 +12,6 @@ public class ItemEvent extends Event {
 	private Object _item = null; 
 	private int _type = 0;
 	
-	
 	public static final int SELECTED = 0;
 	public static final int DESELECTED = 1;
 	public static final int CALLED = 2;
@@ -44,7 +43,6 @@ public class ItemEvent extends Event {
 		return _id;
 	}
 	
-	
 	/**
     *  @return the type of the event. Only possible values: <code>SELECTED</code>,<code>DESELECTED</code>,<code>CALLED</code>
     */
@@ -58,5 +56,4 @@ public class ItemEvent extends Event {
 	public Object getItem() {
 		return _item;
 	}
-
 }

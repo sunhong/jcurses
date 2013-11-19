@@ -3,31 +3,28 @@ package jcurses.widgets;
 import java.io.File;
 import java.io.FileFilter;
 
-import jcurses.util.Protocol;
-
 
 public class DefaultFileFilterFactory implements JCursesFileFilterFactory {
-	
+
 	public FileFilter generateFileFilter(String filterString) {
 		return new DefaultFileFilter(filterString);
 	}
-	
 
 }
 
 
 class DefaultFileFilter implements FileFilter {
 	String _filterString = null;
-	
+
 	DefaultFileFilter(String filterString) {
 		if (filterString!=null) {
 			_filterString = filterString.trim();
 		}
 	}
-	
-	
+
+
 	public boolean accept(File fileF) {
-		
+
 		if ((_filterString == null) || (fileF == null)) {
 			return true;
 		} else {
@@ -47,9 +44,10 @@ class DefaultFileFilter implements FileFilter {
 			} else if (index == (_filterString.length()-1)) {
 				return file.startsWith(_filterString.substring(0,_filterString.length()-1));
 			} else {
-				return (file.startsWith(_filterString.substring(0,index)))&&(file.endsWith(_filterString.substring(index+1, _filterString.length())));
+				return (file.startsWith(_filterString.substring(0,index)))
+						&&(file.endsWith(_filterString.substring(index+1, _filterString.length())));
 			}
 		}
-		
+
 	}
 }

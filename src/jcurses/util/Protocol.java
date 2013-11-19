@@ -1,6 +1,6 @@
 /******************************************************
  * 
- * Fürs Logging
+ * Fï¿½rs Logging
  */
 
 
@@ -40,7 +40,7 @@ public class Protocol {
 	public static final String SYSTEM = "system";
 	
 	
-	private static HashSet __activatedChannels = new HashSet();
+	private static HashSet<String> __activatedChannels = new HashSet<String>();
 	private static PrintStream __logStream = null;
 	
 	static {

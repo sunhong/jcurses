@@ -8,7 +8,6 @@ import jcurses.system.CharColor;
 import jcurses.system.InputChar;
 import jcurses.system.Toolkit;
 
-import jcurses.util.Protocol;
 import jcurses.util.Rectangle;
 
 import java.util.Vector;
@@ -23,7 +22,7 @@ public class PopUpList extends Widget {
 	
  
 	private int _selectedIndex = -1;
-	Vector _items = new Vector();
+	Vector<String> _items = new Vector<String>();
 	
 	private ValueChangedListenerManager _listenerManager = new ValueChangedListenerManager();
 	

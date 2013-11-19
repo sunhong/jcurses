@@ -4,17 +4,17 @@ package jcurses.widgets;
 * This interface must be implemented bei layout managers,
 * that layout widgets within widget containers.
 */
-
-
-public interface LayoutManager {
+public abstract class LayoutManager {
+	
+	protected WidgetContainer _father;
 	
 	/**
 	* The method layouts a widget within a container, dependet of layouting constraints.
     * 
     * @param child widget to layout
-    * @param constraints layouting constraints
+    * @param constraint layout constraint
 	*/
-   public abstract void layout(Widget child, Object constraints);
+   public abstract void layout(Widget child, LayoutConstraint constraint);
 	
 	/**
 	*  The method is called by framework by binding the layout manager
@@ -25,7 +25,13 @@ public interface LayoutManager {
     * 
     * @param container container to bind
 	*/
-	public abstract void bindToContainer(WidgetContainer container);
+	public void bindToContainer(WidgetContainer container) {
+		if (_father != null) {
+			throw new RuntimeException ("Already bound!!!");
+		}
+		_father = container;
+		_father.setLayoutManager(this);
+	}
 	
 	/**
 	* The method is called by framework by unbinding the layout manager
@@ -35,9 +41,7 @@ public interface LayoutManager {
     * to one container at a time.
     *
 	*/
-	
-	public abstract void unbindFromContainer();
-    
-	
-
+	public void unbindFromContainer() {
+		_father = null;
+	}
 }

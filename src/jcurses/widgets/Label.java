@@ -1,10 +1,7 @@
 package jcurses.widgets;
 
 import jcurses.system.CharColor;
-import jcurses.system.InputChar;
 import jcurses.system.Toolkit;
-
-import jcurses.util.Protocol;
 import jcurses.util.Rectangle;
 
 import java.util.StringTokenizer;
@@ -14,16 +11,13 @@ import java.util.StringTokenizer;
 */
 public class Label extends Widget {
 	
- 
     private String _label = null; 
-	
 	
 	private static CharColor __labelDefaultColors = new CharColor(CharColor.WHITE, CharColor.BLACK);
 	
 	public CharColor getDefaultColors() {
 		return __labelDefaultColors;
 	}
-	
 	
     /**
     *  The constructor
@@ -40,7 +34,6 @@ public class Label extends Widget {
 		setColors(colors);
 	}
 	
-	
     /**
     *  The constructor
     * 
@@ -49,7 +42,6 @@ public class Label extends Widget {
 	public Label(String label) {
 		this(label, null);
 	}
-	
 	
 	protected Rectangle getPreferredSize() {
 		if (_label.indexOf("\n") == -1) {
@@ -70,23 +62,13 @@ public class Label extends Widget {
 		}
 	}
 	
-	
 	protected void doPaint() {
 		Rectangle rect = (Rectangle)getSize().clone();
 		rect.setLocation(getAbsoluteX(), getAbsoluteY());
 		Toolkit.printString(_label,rect, getColors());
 	}
 	
-	
 	protected void doRepaint() {
 		doPaint();
 	}
-	
-	
-	
-	
-	
-	
-	
-
 }

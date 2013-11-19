@@ -2,7 +2,6 @@ package jcurses.widgets;
 
 import jcurses.system.CharColor;
 import jcurses.system.Toolkit;
-import jcurses.util.Protocol;
 import jcurses.util.Rectangle;
 
 /**
@@ -74,26 +73,19 @@ public class Panel extends WidgetContainer {
 	
     /**
     *  Sets panel colors.
-    * 
     * @param colors new panel colors
-    *
     */
 	public void setPanelColors(CharColor colors) {
 		_colors = colors;
 	}
 	
-	
 	protected  CharColor getDefaultPanelColors() {
 		return __defaultPanelColors; 
 	}
 	
-	
-	
 	protected Rectangle getPaintingRectangle() {
 		return getSize();
 	}
-	
-	
 }
 
 

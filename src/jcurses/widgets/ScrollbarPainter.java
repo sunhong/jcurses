@@ -1,7 +1,6 @@
 package jcurses.widgets;
 
 import jcurses.util.Rectangle;
-import jcurses.util.Protocol;
 import jcurses.system.Toolkit;
 
 

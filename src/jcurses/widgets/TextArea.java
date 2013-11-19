@@ -1,10 +1,8 @@
 package jcurses.widgets;
 
-import jcurses.system.InputChar;
 import jcurses.system.CharColor;
 import jcurses.system.Toolkit;
 import jcurses.util.Rectangle;
-import jcurses.util.ScrollbarUtils;
 
 /**
 *  This class implements a text area to edit a text with meny lines

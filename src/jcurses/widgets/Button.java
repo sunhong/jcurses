@@ -8,7 +8,6 @@ import jcurses.system.CharColor;
 import jcurses.system.InputChar;
 import jcurses.system.Toolkit;
 
-import jcurses.util.Protocol;
 import jcurses.util.Rectangle;
 
 import java.util.Vector;
@@ -150,11 +149,11 @@ public class Button extends Widget {
 	}
 	
 	
-	protected  Vector getShortCutsList() {
+	protected  Vector<InputChar> getShortCutsList() {
 		if (getShortCut() == null) {
 			return null;
 		}
-		Vector result = new Vector();
+		Vector<InputChar> result = new Vector<InputChar>();
 		result.add(getShortCut());
 		return result;
 	}
@@ -242,10 +241,4 @@ public class Button extends Widget {
 	private InputChar getShortCut() {
 		return _shortCut;
 	}
-	
-	
-	
-	
-	
-
 }

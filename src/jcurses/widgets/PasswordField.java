@@ -1,9 +1,5 @@
 package jcurses.widgets;
 
-import jcurses.system.CharColor;
-import jcurses.system.Toolkit;
-import jcurses.util.Rectangle;
-
 /**
  * Title:        JCurses
  * Description:

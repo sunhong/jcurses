@@ -1,15 +1,12 @@
 /**
-* Dies ist die Root-Klasse für alle Widgets.
+* Dies ist die Root-Klasse fï¿½r alle Widgets.
 */
 
 
 package jcurses.widgets;
 
-import java.util.List;
-
 import jcurses.system.CharColor;
 import jcurses.system.InputChar;
-import jcurses.util.Protocol;
 import jcurses.util.Rectangle;
 
 import java.util.Vector;
@@ -398,11 +395,5 @@ public abstract class Widget {
 	public  CharColor getColors() {
 		return (_colors == null)?getDefaultColors():_colors;
 	}
-	
-	
-	
-	
-	
-	
 	
 }

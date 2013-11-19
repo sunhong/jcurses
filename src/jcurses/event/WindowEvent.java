@@ -11,8 +11,6 @@ public class WindowEvent extends Event {
 	private int _type = 0;
 	private Window _sourceWindow = null;
 	
-	
-
 	public static final int CLOSED = 0;
 	public static final int CLOSING = 1;
 	public static final int ACTIVATED = 2;

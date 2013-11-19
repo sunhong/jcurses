@@ -82,8 +82,4 @@ public abstract class ListenerManager {
 	public int countListeners() {
 		return _listeners.size();
 	}
-	
-	
-	
-
 }

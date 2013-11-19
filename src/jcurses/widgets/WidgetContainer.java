@@ -6,14 +6,11 @@
 
 package jcurses.widgets;
 
-import jcurses.system.InputChar;
 import jcurses.system.Toolkit;
-import jcurses.util.Protocol;
 import jcurses.util.Rectangle;
 
 
 import java.util.Hashtable;
-import java.util.List;
 import java.util.Vector;
 
 /**
@@ -23,8 +20,8 @@ import java.util.Vector;
 public abstract class WidgetContainer extends Widget {
 	
 	
-	private Vector _widgets = new Vector();
-	private Hashtable _constraints = new Hashtable();
+	private Vector<Widget> _widgets = new Vector<Widget>();
+	private Hashtable<Widget, LayoutConstraint> _constraints = new Hashtable<Widget, LayoutConstraint>();
 	
 	
 	/**
@@ -72,7 +69,7 @@ public abstract class WidgetContainer extends Widget {
 	}
 	
 	
-	private Rectangle getClippingRect(Rectangle rect, Widget widget) {
+	/*private Rectangle getClippingRect(Rectangle rect, Widget widget) {
 		
 		Rectangle widgetRectangle =new Rectangle (widget.getAbsoluteX(), widget.getAbsoluteY(), 
 									 widget.getSize().getWidth(), 
@@ -80,19 +77,16 @@ public abstract class WidgetContainer extends Widget {
 		Rectangle clip = rect.intersection(widgetRectangle);
 		return clip;
 		
-	}
+	}*/
 	
-	
-	
-	
-	private void packChild(Widget widget,Object constraint) {
+	private void packChild(Widget widget, LayoutConstraint constraint) {
 		getLayoutManager().layout(widget, constraint);
 	}
     
 	
     /**
-    *  The method layouts all childrens bei the widget,
-    * using containers layout manager. The method is called bei framework,
+    *  The method layouts all children of the widget,
+    * using containers layout manager. The method is called by framework,
     * before it paints a window-
     */
 	protected void pack() {
@@ -114,7 +108,7 @@ public abstract class WidgetContainer extends Widget {
     * @constraint layouting constraints
 	*/
 	
-	protected void addWidget(Widget widget, Object constraint) {
+	protected void addWidget(Widget widget, LayoutConstraint constraint) {
 		_widgets.add(widget);
 		_constraints.put(widget, constraint);
 		widget.setParent(this);
@@ -129,8 +123,6 @@ public abstract class WidgetContainer extends Widget {
     * @param widget widget to remove 
 	* 
 	*/
-	
-    
 	protected void removeWidget(Widget widget) {
 		_widgets.remove(widget);
 		_constraints.remove(widget);
@@ -138,15 +130,13 @@ public abstract class WidgetContainer extends Widget {
 	}
 	
 	
-	
 	/**
 	* The method returns a list of input widgets within the container.
     * 
     * @return input widgets within container
 	*/
-	
-    protected Vector getListOfFocusables() {
-		Vector result  = new Vector();
+    protected Vector<Widget> getListOfFocusables() {
+		Vector<Widget> result  = new Vector<Widget>();
 		for (int i=0; i< _widgets.size(); i++) {
 			Widget widget = (Widget)_widgets.elementAt(i);
 			if (widget.isFocusable() && widget.getVisible()) {
@@ -155,9 +145,7 @@ public abstract class WidgetContainer extends Widget {
 				result.addAll(((WidgetContainer)widget).getListOfFocusables());
 			}
 		}
-		
 		return result;
-		
 	}
 	
 	
@@ -166,9 +154,8 @@ public abstract class WidgetContainer extends Widget {
     * 
     * @return widgets within container, that can handle shortcuts 
 	*/
-	
-    protected Vector getListOfWidgetsWithShortCuts() {
-		Vector result  = new Vector();
+    protected Vector<Widget> getListOfWidgetsWithShortCuts() {
+		Vector<Widget> result  = new Vector<Widget>();
 		for (int i=0; i< _widgets.size(); i++) {
 			Widget widget = (Widget)_widgets.elementAt(i);
 			if (widget.getShortCutsList()!=null) {
@@ -177,61 +164,46 @@ public abstract class WidgetContainer extends Widget {
 				result.addAll(((WidgetContainer)widget).getListOfWidgetsWithShortCuts());
 			}
 		}
-		
-		return result;
-		
+
+		return result;		
 	}
 	
 	/**
 	* This method returns the rectangle, that is used as painting surface for container's children
     * If null is returned, the entire container's surface is used.
 	*/
-	
-	
 	protected Rectangle getChildsRectangle() {
 		return null;
 	}
 
 
-	
 	/**
 	*  LayoutManager
-	*/
-	
-	
-	
+	*/	
 	private LayoutManager _layoutManager = null;
 
-
-	
-	
     /**
     *  The method sets container's layout manager
     * 
     * @param layoutManager new layout manager
     */
 	public void setLayoutManager(LayoutManager layoutManager) {
-		if (_layoutManager!=null) {
-			_layoutManager.unbindFromContainer();
-		}
+		//if (_layoutManager!=null) {
+		//	_layoutManager.unbindFromContainer();
+		//}
 		_layoutManager = layoutManager;
-		_layoutManager.bindToContainer(this);
+		//_layoutManager.bindToContainer(this);
 	}
-	
 	
     /**
     *  @return container's layout manager
     */
 	public LayoutManager getLayoutManager() {
-		if (_layoutManager == null) {
-			setLayoutManager(new DefaultLayoutManager());
-		}
+		//if (_layoutManager == null) {
+		//	setLayoutManager(new DefaultLayoutManager());
+		//}
 		return _layoutManager;
 	}
-	
-	
-	
-	
 }
 
 

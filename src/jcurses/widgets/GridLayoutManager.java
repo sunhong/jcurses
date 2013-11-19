@@ -2,103 +2,86 @@ package jcurses.widgets;
 
 import jcurses.util.Rectangle;
 
-/******************************************************
+/**
  * This class is a layout manager that works like as the <code>DefaultLayoutManager</code>
  * with an difference: the painting rectangle is shared in many grid cells and the constraints
  * are stated not in real coodinates on the painting rectangle, but in 'grid-coordinates'
  */
+public class GridLayoutManager extends LayoutManager implements WidgetsConstants {
 
-public class GridLayoutManager implements LayoutManager, WidgetsConstants {
-	
 	private DefaultLayoutManager _defLayout = new DefaultLayoutManager();
-	private WidgetContainer _father = null;
-	
+	//private WidgetContainer _father = null;
+
 	private int _width = 0;
+	
 	private int _height = 0;
-	
+
 	private Grid _grid = null;
-	
-	
-    public void bindToContainer(WidgetContainer container) {
-		if (_father != null) {
-			throw new RuntimeException ("Already bound!!!");
-		}
-		_father = container;
-	}
-	
-	
-	public void unbindFromContainer() {
-		_father = null;
-	}
-	
+
 	/**
-	*  The constructor
-    * 
-    * @param width the width of the grid ( in cells )
-    * @param height the height of the grid ( in cells )
-    * 
-	*/
+	 * The constructor 
+	 * @param width the width of the grid ( in cells )
+	 * @param height the height of the grid ( in cells )
+	 * 
+	 */
 	public GridLayoutManager(int width, int height) {
 		_width = width;
 		_height = height;
 	}
-	
-	
-	
-	
-	public void layout(Widget widget, Object constraint) {
-	  if (! (constraint instanceof GridLayoutConstraint)) {
-		 throw new RuntimeException("unknown constraint: "+constraint.getClass().getName());
-	  }
-	  
-	  Rectangle rect = (_father.getChildsRectangle() == null)?_father.getSize():_father.getChildsRectangle();
-	  _grid = new Grid(rect, _width, _height);
-	  _defLayout.layout(widget, ((GridLayoutConstraint)constraint).getDefaultLayoutConstraint(_grid));
-	
+
+	public void layout(Widget widget, LayoutConstraint constraint) {
+		
+		if (! (constraint instanceof GridLayoutConstraint)) {
+			throw new RuntimeException("unknown constraint: " + constraint.getClass().getName());
+		}
+		GridLayoutConstraint layoutConstraint = (GridLayoutConstraint)constraint;
+		Rectangle rect = (_father.getChildsRectangle() == null)?_father.getSize():_father.getChildsRectangle();
+		_grid = new Grid(rect, _width, _height);
+		_defLayout.layout(widget, layoutConstraint.getDefaultLayoutConstraint(_grid));
 	}
-	
-	
-	
-	
-    /**
-	*  Adds a widget to the boundeb container
-    * 
-    * @param widget widget to be added
-    * @param x the x coordinate of the top left corner of the rectangle, within that the widget is placed
-    * @param y the y coordinate of the top left corner of the rectangle, within that the widget is placed
-    * @param width the width of the rectangle, within that the widget is placed
-    * @param height the hight of the rectangle, within that the widget is placed
-    * @param verticalConstraint vertical alignment constraint. Following values a possible: 
-    * <code>WidgetConstraints.ALIGNMENT_CENTER</code>,<code>WidgetConstraints.ALIGNMENT_TOP</code>,<code>WidgetConstraints.ALIGNMENT_BOTTOM</code>
-    * @param horizontalConstraint vertical alignment constraint, Following values are possible:
-    *  * <code>WidgetConstraints.ALIGNMENT_CENTER</code>,<code>WidgetConstraints.ALIGNMENT_LEFT</code>,<code>WidgetConstraints.ALIGNMENT_RIGHT</code>
-	*/
-    public void addWidget(Widget widget, int x, int y, int width, int height, int verticalConstraint, int horizontalConstraint) {
+
+	/**
+	 *  Adds a widget to the boundeb container
+	 * 
+	 * @param widget widget to be added
+	 * @param x the column index of the top left corner of the rectangle, within that the widget is placed
+	 * @param y the row index of the top left corner of the rectangle, within that the widget is placed
+	 * @param width the number of columns, within that the widget is placed
+	 * @param height the number of rows, within that the widget is placed
+	 * @param verticalConstraint vertical alignment constraint. Following values a possible: 
+	 * <code>WidgetConstraints.ALIGNMENT_CENTER</code>,<code>WidgetConstraints.ALIGNMENT_TOP</code>,<code>WidgetConstraints.ALIGNMENT_BOTTOM</code>
+	 * @param horizontalConstraint vertical alignment constraint, Following values are possible:
+	 * <code>WidgetConstraints.ALIGNMENT_CENTER</code>,<code>WidgetConstraints.ALIGNMENT_LEFT</code>,<code>WidgetConstraints.ALIGNMENT_RIGHT</code>
+	 */
+	public void addWidget(Widget widget, int x, int y, int width, int height, int verticalConstraint, int horizontalConstraint) 
+	throws IllegalArgumentException{
+		if (x<0) throw new IllegalArgumentException("x is negative");
+		if (x+width>this._width) throw new IllegalArgumentException("x plus width is out of range");
+		if (y<0) throw new IllegalArgumentException("y is negative");
+		if (y+height>this._height) throw new IllegalArgumentException("y plus height is out of range");
+		if (_father==null) throw new NullPointerException("Root container is null");
 		_father.addWidget(widget, new GridLayoutConstraint(x, y, width, height, horizontalConstraint, verticalConstraint));
-		
 	}
-	
-	
-    /**
-    *  Removes a widget 
-    * @param widget widget to remove
-    */
-    public void removeWidget(Widget widget) {
+
+	/**
+	 * Removes a widget 
+	 * @param widget widget to remove
+	 */
+	public void removeWidget(Widget widget) {
 		_father.removeWidget(widget);
-		
 	}
 }
 
 
-class GridLayoutConstraint {
-	
+/*class GridLayoutConstraint {
+
 	int x =0;
 	int y =0;
 	int width=0;
 	int height=0;
 	int horizontalConstraint=0;
 	int verticalConstraint=0;
-	
+
 	GridLayoutConstraint(int x, int y, int width, int height, int horizontalConstraint, int verticalConstraint) {
 		this.x=x;
 		this.y=y;
@@ -107,40 +90,44 @@ class GridLayoutConstraint {
 		this.horizontalConstraint=horizontalConstraint;
 		this.verticalConstraint=verticalConstraint;
 	}
-	
+
 	DefaultLayoutConstraint getDefaultLayoutConstraint(Grid grid) {
-		
+
 		Rectangle rect = grid.getRectangle(x,y,width,height);
 		return new DefaultLayoutConstraint(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight(),
-										   horizontalConstraint, verticalConstraint);
-		
+				horizontalConstraint, verticalConstraint);
 	}
+}*/
 
-}
 
-class Grid {
-	
-	int [] _widths;
-	int [] _heights;
-	
-	Grid(Rectangle rect, int width, int height) {
+//class Grid {
+
+	//int [] _widths;
+	//int [] _heights;
+
+	/**
+	 * Constructor of Grid
+	 * @param rect Rectangular area
+	 * @param width Number of columns
+	 * @param height Number of rows
+	 */
+	/*Grid(Rectangle rect, int width, int height) {
 		if (((rect.getWidth()/width) <1) || ((rect.getHeight()/height) <1)) {
 			throw new RuntimeException (" the grid is to fine: "+rect.getWidth()+":"+rect.getHeight()+":"+width+":"+height);
 		}
-		
+
 		_widths = new int [width];
 		_heights = new int [height];
-		
+
 		fillArray(_widths, rect.getWidth(), width);
 		fillArray(_heights, rect.getHeight(), height);
+	}*/
+
+	/*private void fillArray(int [] array, int rectWidth, int width) {
 		
-	}
-	
-	
-	private void fillArray(int [] array, int rectWidth, int width) {
 		int mod = rectWidth%width;
 		int cellWidth = rectWidth/width;
-		
+
 		for (int i=0; i<width; i++) {
 			if (mod > 0) {
 				array [i] = cellWidth+1;
@@ -149,28 +136,26 @@ class Grid {
 				array [i] = cellWidth;
 			}
 		}
-		
-	}
-	
-	Rectangle getRectangle(int x, int y, int width, int height) {
+	}*/
+
+	/**
+	 * Get the rectangle of several grids
+	 * @param x Row index of top-left grid
+	 * @param y Column index of top-left grid
+	 * @param width Number of columns 
+	 * @param height Number of rows
+	 * @return
+	 */
+	/*Rectangle getRectangle(int x, int y, int width, int height) {
 		return new Rectangle(getWidth(_widths, 0,x), getWidth(_heights, 0,y), getWidth(_widths, x,x+width), 
-							 getWidth(_heights, y, y+height));
-		
+				getWidth(_heights, y, y+height));
 	}
-	
-	
+
 	private int getWidth(int [] array, int begin, int end) {
 		int width = 0;
 		for (int i=begin; i<end; i++) {
 			width+=array[i];
 		}
-		
 		return width;
-	}
-	
-	
-}
-	
-
-
-
+	}*/
+//}

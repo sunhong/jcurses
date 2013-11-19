@@ -12,4 +12,5 @@ chcp 850
 
 Updates:
 
-11/19/2013 - Fixed bug: using multiple layouts causes 'Unknown LayoutConstraints'
+11/19/2013
+Fixed bug: using multiple layouts causes 'Unknown LayoutConstraints'

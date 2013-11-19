@@ -23,9 +23,7 @@ public class DefaultLayoutManager extends LayoutManager implements WidgetsConsta
 
 		int prefWidth = prefSize.getWidth();
 		int prefHeight = prefSize.getHeight();
-		/**
-		 *  Negativ oder 0 bedeutet, da� keine bevorzugte Gr�sse angegeben wurde
-		 */
+
 		if (prefWidth<=0) {
 			prefWidth = cstr.getWidth();
 		}

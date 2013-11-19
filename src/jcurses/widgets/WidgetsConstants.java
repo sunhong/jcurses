@@ -1,15 +1,6 @@
 package jcurses.widgets;
 
-
-/**
-*  Die Klasse enthält wichtige Konstanten 
-*/
-
 public interface WidgetsConstants {
-	
-	/**
-	*  Ausrichtung
-	*/
 	
 	public static final int ALIGNMENT_TOP = 0;
 	public static final int ALIGNMENT_BOTTOM = 1;

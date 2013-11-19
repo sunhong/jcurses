@@ -1,15 +1,15 @@
 package jcurses.widgets;
 import jcurses.util.Rectangle;
 
-/**
- * This class is a layout manager that works like Swing's
- * BorderLayout. Up to 5 widgets can be added to this layout at once,
- * in the following positions: NORTH, SOUTH, WEST, EAST, and
- * CENTER. Components in the outer positions are set to their
- * preferred size, and the component in the CENTER is allocated the
- * remaining screen area.
- *
- * @author <a href="mailto:lenbok@myrealbox.com">Len Trigg</a>
+/**
+ * This class is a layout manager that works like Swing's
+ * BorderLayout. Up to 5 widgets can be added to this layout at once,
+ * in the following positions: NORTH, SOUTH, WEST, EAST, and
+ * CENTER. Components in the outer positions are set to their
+ * preferred size, and the component in the CENTER is allocated the
+ * remaining screen area.
+ *
+ * @author <a href="mailto:lenbok@myrealbox.com">Len Trigg</a>
  */
 public class BorderLayoutManager extends LayoutManager {
 

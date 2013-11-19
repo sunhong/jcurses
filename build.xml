@@ -1,0 +1,23 @@
+<project name="jcurses" default="jar" basedir=".">
+
+  <!-- set global properties for this build -->
+  <property name="src" location="src/jcurses"/>
+  <property name="build" location="build"/>
+
+  <target name="clean" >
+    <delete dir="${build}"/>
+  </target>
+
+  <target name="init" depends="clear">
+    <mkdir dir="${build}"/>
+  </target>
+
+  <target name="compile" depends="init">
+    <javac srcdir="${src}" destdir="${build}/classes" encoding="UTF-8"/>
+  </target>
+
+  <target name="jar" depends="compile">
+    <jar jarfile="${build}/jcurses.jar" basedir="${build}"/>
+  </target>
+
+</project>

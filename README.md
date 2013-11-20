@@ -16,3 +16,7 @@ Updates:
 11/19/2013
 
 Fixed bug: using multiple layouts causes 'Unknown LayoutConstraints'
+
+11/20/2013
+
+Fixed bug: In some cases, windows cannot get keyboard input

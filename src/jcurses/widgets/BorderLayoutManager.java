@@ -241,16 +241,3 @@ public class BorderLayoutManager extends LayoutManager {
 		}
 	}
 }
-/** Stores the layout preferences for a widget within the BorderLayout */
-/*class BorderLayoutConstraint {
-	Widget mWidget;
-	int mPosition;
-	int mHorizontalConstraint;
-	int mVerticalConstraint;
-	BorderLayoutConstraint(Widget widget, int position, int horizontalConstraint, int verticalConstraint) {
-		mWidget = widget;
-		mPosition = position;
-		mHorizontalConstraint = horizontalConstraint;
-		mVerticalConstraint = verticalConstraint;
-	}
-}*/

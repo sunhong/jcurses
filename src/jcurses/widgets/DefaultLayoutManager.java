@@ -13,9 +13,9 @@ public class DefaultLayoutManager extends LayoutManager implements WidgetsConsta
 	//private WidgetContainer _father = null;
 
 	public void layout(Widget widget, LayoutConstraint constraint) {
-		//if (! (constraint instanceof DefaultLayoutConstraint)) {
-		//	throw new RuntimeException("unknown constraint: "+constraint.getClass().getName());
-		//}
+		if (! (constraint instanceof DefaultLayoutConstraint)) {
+			throw new RuntimeException("unknown constraint: "+constraint.getClass().getName());
+		}
 
 		DefaultLayoutConstraint cstr = (DefaultLayoutConstraint)constraint;
 
@@ -113,23 +113,3 @@ public class DefaultLayoutManager extends LayoutManager implements WidgetsConsta
 		_father.removeWidget(widget);
 	}
 }
-
-
-/*class DefaultLayoutConstraint {
-
-	int x =0;
-	int y =0;
-	int width=0;
-	int height=0;
-	int horizontalConstraint=0;
-	int verticalConstraint=0;
-
-	DefaultLayoutConstraint(int x, int y, int width, int height, int horizontalConstraint, int verticalConstraint) {
-		this.x=x;
-		this.y=y;
-		this.width=width;
-		this.height=height;
-		this.horizontalConstraint=horizontalConstraint;
-		this.verticalConstraint=verticalConstraint;
-	}
-}*/

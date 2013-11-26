@@ -27,9 +27,15 @@ public class WindowManagerInputThread extends Thread {
 			}
 		}
 	}
+	
+	protected synchronized void activate() {
+		_run = true;
+		_read = true;
+	}
 
 	protected synchronized void end() {
 		_run = false;
+		this.interrupt();
 	}
 
 	protected synchronized void deactivate() {

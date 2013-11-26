@@ -114,7 +114,6 @@ public class Toolkit {
 				found = true;
 				break;
 			}
-
 		}
 		if (!found) {
 			throw new RuntimeException("couldn't find jcurses library");  

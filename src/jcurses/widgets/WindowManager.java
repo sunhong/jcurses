@@ -13,15 +13,15 @@ public class WindowManager {
 
 	private static Vector<Window> __windowsStack = new Vector<Window>();
 	private static CharColor __defaultScreenColors = new CharColor(CharColor.BLUE, CharColor.BLUE);
-	private static CharColor __colors = getDefaultScreenColors();
-	/**
-	 * Method to be used by external threads wishing to perform
-	 * safe calls to jcurses widgets. Access to this method is
-	 * provided from WidgetUtilities.invokeAndWait().
-	 *
-	 * @param r a <code>Runnable</code> containing the code to be
-	 * executed in a thread-safe manner.
-	 */
+	private static CharColor __colors = getDefaultScreenColors();	public static enum STATE {		UP, DOWN	}; 	private static STATE __state = STATE.DOWN;
+	/**
+	 * Method to be used by external threads wishing to perform
+	 * safe calls to jcurses widgets. Access to this method is
+	 * provided from WidgetUtilities.invokeAndWait().
+	 *
+	 * @param r a <code>Runnable</code> containing the code to be
+	 * executed in a thread-safe manner.
+	 */
 	static synchronized void invokeAndWait(Runnable r) {
 		r.run();
 	}
@@ -38,21 +38,21 @@ public class WindowManager {
 		if (__windowsStack.size() == 0) {
 			init();
 		}
-		__windowsStack.add(w);
+		if (!__windowsStack.contains(w)) {			__windowsStack.add(w);		}
 	}
 	protected static void removeWindow(Window w) {
 		if (__windowsStack.indexOf(w)!=-1) {
 			removeWindowFromScreen(w);
 			__windowsStack.remove(w);
-			w.closed();
-			if (getTopWindow() == null) {
+			w.closed();			Window tw = getTopWindow();
+			if (tw == null) {
 				shutdown();
 			} else {
-				getTopWindow().activate();
+				tw.activate();
 			}
 		}
 	}
-	protected static void makeWindowVisible(Window w, Window oldTop) {
+	protected static void makeWindowVisible(Window w, Window oldTop) {		if (__state == STATE.DOWN){			init();		}
 		Toolkit.startPainting();
 		if (__windowsStack.indexOf(w)!=-1) {
 			int index = __windowsStack.indexOf(w);
@@ -73,15 +73,11 @@ public class WindowManager {
 	}
 	protected static void makeWindowInvisible(Window w, Window oldTop) {
 		if (__windowsStack.indexOf(w)!=-1) {
-			if (getTopWindow() == null) {
-				shutdown();
-			} else {
-				removeWindowFromScreen(w);
-				if (w == oldTop) {
-					w.deactivate();
-					if (getTopWindow() == null) {
-						getTopWindow().activate();
-					}
+			removeWindowFromScreen(w);
+			if (w == oldTop) {
+				w.deactivate();
+				if (getTopWindow() != null) {
+					getTopWindow().activate();
 				}
 			}
 		}
@@ -128,22 +124,13 @@ public class WindowManager {
 		}
 		return result;
 	}
-	private static boolean wasPartVisible(int index) {
-		boolean result = true;
+	private static boolean wasPartVisible(int index) {		Window aw = (Window)__windowsStack.elementAt(index);		Rectangle rect = aw.getRectangle();		if (aw.hasShadow()) {			rect = ((Rectangle)rect.clone());			rect.resize(rect.getWidth()+1, rect.getHeight()+1);		}
 		for (int i=index+1; i<__windowsStack.size(); i++) {
-			Window aw = (Window)__windowsStack.elementAt(index);
-			Rectangle rect2 = aw.getRectangle();
-			if (aw.hasShadow()) {
-				rect2 = ((Rectangle)rect2.clone());
-				rect2.resize(rect2.getWidth()+1, rect2.getHeight()+1);
-			}
 			Window aw1 = (Window)__windowsStack.elementAt(i);
-			if (aw1.isVisible() && (aw1.getRectangle().contains(rect2))) {
-				result = false;
-				break;
+			if (aw1.isVisible() && (aw1.getRectangle().contains(rect))) {				return false;
 			}
 		}
-		return result;
+		return true;
 	}
 	protected static void moveToTop(Window w) {
 		Window oldTop = getTopWindow();
@@ -167,18 +154,18 @@ public class WindowManager {
 			}
 		}
 		return null;
-	}	
+	}
 	public synchronized static void init() {
 		Toolkit.clearScreen(getScreenColors());
-		startInputThread();
+		startInputThread();		__state = STATE.UP;
 	}
 	private synchronized static void shutdown() {
 		deactivateInputThread();
 		Toolkit.shutdown();
-		stopInputThread();
-	}	
+		stopInputThread();		__state = STATE.DOWN;
+	}
 	private static WindowManagerInputThread _inthread = new WindowManagerInputThread();
-	private synchronized static void startInputThread() {		//if (!_inthread.isAlive()){			_inthread.start();		//}
+	private synchronized static void startInputThread() {		_inthread.activate();		if (!_inthread.isAlive()){			_inthread.start();		}
 	}
 	private synchronized static void stopInputThread() {
 		_inthread.end();
@@ -191,7 +178,7 @@ public class WindowManager {
 	}
 	public static boolean isInputThread() {
 		return (Thread.currentThread() == _inthread); 
-	}	
+	}
 	protected synchronized static void handleInput(InputChar input) {
 		Window tw = getTopWindow();
 		Toolkit.startPainting();
@@ -204,7 +191,7 @@ public class WindowManager {
 				System.exit(1);
 			}
 		}
-		if (_inthread.isRunning()) {
+		if (_inthread.isAlive()) {
 			Toolkit.endPainting();
 		}
 	}

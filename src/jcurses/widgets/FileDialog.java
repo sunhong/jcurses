@@ -8,9 +8,9 @@ import jcurses.system.Toolkit;
 import jcurses.util.Message;
 import java.io.File;
 import java.io.FileFilter;
-/**
-*  This class implements a file select dialog
-*/
+/**
+*  This class implements a file select dialog
+*/
 public class FileDialog extends Dialog implements WidgetsConstants, ItemListener, ActionListener {
 	
 	private String _directory = null;
@@ -214,10 +214,10 @@ public class FileDialog extends Dialog implements WidgetsConstants, ItemListener
 		_fileField.setText(getCurrentFileContent());
 		_fileField.paint();
 	}
-	private void updateFilterField() {
+	/*private void updateFilterField() {
 		_filterField.setText(_filterString);
 		_filterField.paint();
-	}
+	}*/
 	private void updateListWidgets() {
 		updateListWidgets(false);
 	}
@@ -292,8 +292,8 @@ public class FileDialog extends Dialog implements WidgetsConstants, ItemListener
 			updateListWidgets();
 			updateFileField();
 		} else if (event.getSource() == _files) {
-		  String item = ((String)event.getItem()).trim();
-		  _file=getCurrentDirectory()+event.getItem();
+		  //String item = ((String)event.getItem()).trim();
+		  _file = getCurrentDirectory()+event.getItem();
 		  updateFileField();
 		}
 	}

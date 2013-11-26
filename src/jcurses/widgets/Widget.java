@@ -316,7 +316,7 @@ public abstract class Widget {
     * To enable shortcuts for a new widget, you must override this method.
 	*/
 	
-	protected  Vector getShortCutsList() {
+	protected  Vector<InputChar> getShortCutsList() {
 		return null;
 	}
 	

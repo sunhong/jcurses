@@ -118,8 +118,6 @@ public class TextField extends TextComponent {
 		boolean filter = 
 				(ch.getCode() == InputChar.KEY_UP) ||
 				(ch.getCode() == InputChar.KEY_DOWN) ||
-				(ch.getCode() == InputChar.KEY_LEFT) ||
-				(ch.getCode() == InputChar.KEY_RIGHT) ||
 				(ch.getCode() == InputChar.KEY_NPAGE) ||
 				(ch.getCode() == InputChar.KEY_PPAGE) ||
 				(ch.getCode() == InputChar.KEY_END) ||

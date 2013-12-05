@@ -9,7 +9,7 @@ import java.util.Vector;
  * This class is a jcurses-internal class, whose task is 
  * to manage jcurses text based windows. It schouldn't be used writing applications. 
  */
-public class WindowManager {
+class WindowManager {
 
 	private static Vector<Window> __windowsStack = new Vector<Window>();
 	private static CharColor __defaultScreenColors = new CharColor(CharColor.BLUE, CharColor.BLUE);

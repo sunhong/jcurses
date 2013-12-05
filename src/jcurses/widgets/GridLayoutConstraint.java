@@ -2,7 +2,7 @@ package jcurses.widgets;
 
 import jcurses.util.Rectangle;
 
-public class GridLayoutConstraint extends LayoutConstraint {
+class GridLayoutConstraint extends LayoutConstraint {
 
 	//Column index of top-left point
 	private int x;

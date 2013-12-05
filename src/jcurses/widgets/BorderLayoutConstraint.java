@@ -1,6 +1,6 @@
 package jcurses.widgets;
 
-public class BorderLayoutConstraint extends LayoutConstraint {
+class BorderLayoutConstraint extends LayoutConstraint {
 	
 	private Widget widget;
 

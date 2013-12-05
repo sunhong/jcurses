@@ -1,6 +1,6 @@
 package jcurses.widgets;
 
-public class DefaultLayoutConstraint extends LayoutConstraint {
+class DefaultLayoutConstraint extends LayoutConstraint {
 	
 	//X coordinate of top-left point
 	private int x;

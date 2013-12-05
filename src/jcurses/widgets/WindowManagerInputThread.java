@@ -3,7 +3,7 @@ package jcurses.widgets;
 import jcurses.system.InputChar;
 import jcurses.system.Toolkit;
 
-public class WindowManagerInputThread extends Thread {
+class WindowManagerInputThread extends Thread {
 
 	private boolean _run = true;
 

@@ -43,6 +43,24 @@ public class Label extends Widget {
 		this(label, null);
 	}
 	
+	/**
+	 * Set label
+	 * @param label
+	 */
+	public void setLabel(String label) {
+		this._label = label;
+		this.doPaint();
+	}
+	
+	/**
+	 * Get label
+	 * @param label
+	 * @return
+	 */
+	public String getLabel() {
+		return this._label;
+	}
+	
 	protected Rectangle getPreferredSize() {
 		if (_label.indexOf("\n") == -1) {
 			return new Rectangle(_label.length(),1);
@@ -65,7 +83,8 @@ public class Label extends Widget {
 	protected void doPaint() {
 		Rectangle rect = (Rectangle)getSize().clone();
 		rect.setLocation(getAbsoluteX(), getAbsoluteY());
-		Toolkit.printString(_label,rect, getColors());
+		Toolkit.drawRectangle(rect, __labelDefaultColors);
+		Toolkit.printString(_label, rect, getColors());
 	}
 	
 	protected void doRepaint() {

@@ -30,3 +30,7 @@ Fixed bug: In some cases, windows cannot get keyboard input
 12/02/2013
 
 Changed the algorithm of sorting widgets
+
+12/05/2013
+
+Added setLabel and getLabel methods to Label class

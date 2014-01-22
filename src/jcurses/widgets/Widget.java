@@ -170,7 +170,10 @@ public abstract class Widget {
     */
 	
 	protected Rectangle getSize() {
-		return (Rectangle)_size.clone();
+		if (_size!=null){
+			return (Rectangle)_size.clone();
+		}
+		return null;
 	}
 	
 	

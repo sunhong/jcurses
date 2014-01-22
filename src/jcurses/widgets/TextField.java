@@ -19,7 +19,7 @@ public class TextField extends TextComponent {
 	 */
 
 	public TextField(int width, String text) {
-		super(width,1,text);
+		super(width, 1, text);
 	}
 
 	/**
@@ -27,7 +27,7 @@ public class TextField extends TextComponent {
 	 * 
 	 * @param width the preferred width, if -1, there is no preferred size.
 	 */
-	public  TextField(int width) {
+	public TextField(int width) {
 		super(width, 1);
 	}
 
@@ -90,19 +90,24 @@ public class TextField extends TextComponent {
 
 
 	protected Rectangle getTextRectangle() {
-		Rectangle result = (Rectangle)getSize().clone();
-		result.setLocation(getAbsoluteX()+1,getAbsoluteY());
-		result.setWidth(result.getWidth()-2);
-		return result;
+		Rectangle rect = this.getSize();
+		if (rect!=null){
+			rect.setLocation(getAbsoluteX()+1, getAbsoluteY());
+			rect.setWidth(rect.getWidth()-2);
+		}
+		return rect;
 	}
 
 
 	protected void doPaint() {
 		super.doPaint();
-		// Begrenzer malen
-		Toolkit.printString(getDelimiterString(),getAbsoluteX(),getAbsoluteY(),getDelimiterColors());
-		Toolkit.printString(getDelimiterString(),getAbsoluteX()+getSize().getWidth()-1,
-				getAbsoluteY(),getDelimiterColors());
+		String delimiter = this.getDelimiterString();
+		int x = this.getAbsoluteX();
+		int y = this.getAbsoluteY();
+		int width = this.getWidth();
+		CharColor colors = this.getDelimiterColors();
+		Toolkit.printString(delimiter, x, y, colors);
+		Toolkit.printString(delimiter, x+width-1, y, colors);
 	}
 
 

@@ -25,7 +25,7 @@ public class TextComponent extends Widget {
 
 	private int _firstChar = 0;
 	private int _firstLine = 0;
-	
+
 	private boolean _focusable = true;
 
 	StringBuffer _text = new StringBuffer("");
@@ -230,29 +230,39 @@ public class TextComponent extends Widget {
 	 * 
 	 */
 	protected Rectangle getTextRectangle() {
-		Rectangle result =  getSize();
-		result.setLocation(getAbsoluteX(), getAbsoluteY());
-		result.setHeight(result.getHeight());
-		return result;
+		Rectangle rect =  getSize();
+		if (rect!=null){
+			rect.setLocation(getAbsoluteX(), getAbsoluteY());
+		}
+		return rect;
 	}
 
 	private int getVisibleHeight() {
-		return getTextRectangle().getHeight();
+		Rectangle rect = this.getTextRectangle();
+		if (rect!=null){
+			return getTextRectangle().getHeight();
+		}else{
+			return 0;
+		}
 	}
 
 	private Rectangle getTextRectangle(int firstLine) {
 		Rectangle rect = getTextRectangle();
-		int y = ((firstLine - _firstLine)>=0)?(firstLine - _firstLine):0;
-		rect.setLocation(rect.getX(), rect.getY()+y);
-		rect.setHeight(rect.getHeight()-y);
+		if (rect!=null){
+			int y = ((firstLine - _firstLine)>=0)?(firstLine - _firstLine):0;
+			rect.setLocation(rect.getX(), rect.getY()+y);
+			rect.setHeight(rect.getHeight()-y);
+		}
 		return rect;
 	}
 
 	private Rectangle getLineRectangle(int firstLine) {
 		Rectangle rect = getTextRectangle();
-		int y = ((firstLine - _firstLine)>=0)?(firstLine - _firstLine):0;
-		rect.setLocation(rect.getX(), rect.getY()+y);
-		rect.setHeight(1);
+		if (rect!=null){
+			int y = ((firstLine - _firstLine)>=0)?(firstLine - _firstLine):0;
+			rect.setLocation(rect.getX(), rect.getY()+y);
+			rect.setHeight(1);
+		}
 		return rect;
 	}
 
@@ -263,11 +273,11 @@ public class TextComponent extends Widget {
 	private int getFirstCharNumber() {
 		return _firstChar;
 	}
-	
+
 	//The default color of window
 	private static CharColor __bgDefaultColors = 
 			new CharColor(CharColor.WHITE, CharColor.WHITE);
-	
+
 	public CharColor getBgDefaultColors(){
 		return __bgDefaultColors;
 	}
@@ -329,15 +339,18 @@ public class TextComponent extends Widget {
 
 	private void drawCursor() {
 		char c = getCharacterAtCursorPosition();
-		drawChar(_cursPosX,_cursPosY, getCursorColors(),c);		
+		drawChar(_cursPosX, _cursPosY, getCursorColors(), c);		
 	}
 
 
 	private void drawChar(int x, int y, CharColor colors, char c) {
-		int x1 = x-_firstChar;
-		int y1 = y - _firstLine;
-		String toPrint = (c == 0)?" ":replaceTextLineForPrinting(""+c);
-		Toolkit.printString(toPrint,getTextRectangle().getX()+x1, getTextRectangle().getY()+y1,colors);
+		Rectangle rect = this.getTextRectangle();
+		if (rect!=null){
+			int x1 = x-_firstChar;
+			int y1 = y - _firstLine;
+			String toPrint = (c == 0)?" ":replaceTextLineForPrinting(""+c);
+			Toolkit.printString(toPrint, rect.getX()+x1, rect.getY()+y1, colors);
+		}
 	}
 
 
@@ -351,17 +364,19 @@ public class TextComponent extends Widget {
 	}
 
 	private void drawLine(int index) {
-		Rectangle rect = getTextRectangle();
-		CharColor colors = hasFocus()?getFocusedTextComponentColors():getColors();
-		int firstLine = getFirstLineNumber();
-		int firstChar = getFirstCharNumber();
-		int pos = ((Integer)_lines.get(index)).intValue();
-		int length = ((Integer)_lineLengths.get(index)).intValue();
-		if ((firstChar < length) && ((index-firstLine) < rect.getHeight())) {
-			int length2 = length - firstChar;
-			int length3 = (length2 > rect.getWidth())?rect.getWidth():length2;
-			Toolkit.printString(replaceTextLineForPrinting(_text.substring(pos+firstChar, pos+firstChar+length3)), 
-					rect.getX(), rect.getY()+index-firstLine, colors);
+		Rectangle rect = this.getTextRectangle();
+		if (rect!=null){
+			CharColor colors = hasFocus()?getFocusedTextComponentColors():getColors();
+			int firstLine = getFirstLineNumber();
+			int firstChar = getFirstCharNumber();
+			int pos = ((Integer)_lines.get(index)).intValue();
+			int length = ((Integer)_lineLengths.get(index)).intValue();
+			if ((firstChar < length) && ((index-firstLine) < rect.getHeight())) {
+				int length2 = length - firstChar;
+				int length3 = (length2 > rect.getWidth())?rect.getWidth():length2;
+				Toolkit.printString(replaceTextLineForPrinting(_text.substring(pos+firstChar, pos+firstChar+length3)), 
+						rect.getX(), rect.getY()+index-firstLine, colors);
+			}
 		}
 	}
 
@@ -422,12 +437,17 @@ public class TextComponent extends Widget {
 
 
 	private void drawBox() {
-		drawBox(getTextRectangle());
+		Rectangle rect = this.getTextRectangle();
+		if (rect!=null){
+			drawBox(rect);
+		}
 	}
 
 	private void changeColors(CharColor colors) {
-		Rectangle rect = getTextRectangle();
-		Toolkit.changeColors(rect, colors);
+		Rectangle rect = this.getTextRectangle();
+		if (rect!=null){
+			Toolkit.changeColors(rect, colors);
+		}
 	}
 
 	protected void doPaint() {
@@ -441,7 +461,7 @@ public class TextComponent extends Widget {
 	protected void setFocusable(boolean focusable){
 		this._focusable = focusable;
 	}
-	
+
 	protected boolean isFocusable() {
 		return _focusable;
 	}
@@ -492,10 +512,14 @@ public class TextComponent extends Widget {
 			paint();
 		} else if (isCursorChanged(bCursorPosX, bCursorPosY)) {
 			int y = Math.min(_cursPosY,bCursorPosY);
-			drawBox(getTextRectangle(y));
-			drawText(y);
-			drawCursor();
-			refreshAdditionalThings();
+			Rectangle rect = getTextRectangle(y);
+			if (rect!=null)
+			{
+				drawBox(rect);
+				drawText(y);
+				drawCursor();
+				refreshAdditionalThings();
+			}
 		}
 	}
 
@@ -619,6 +643,7 @@ public class TextComponent extends Widget {
 	}
 
 	public void setVisible(boolean visible) {
+		if (this.isVisible()==visible) return;
 		super.setVisible(visible);
 		if (visible){
 			changeColors(this.getColors());
@@ -630,7 +655,7 @@ public class TextComponent extends Widget {
 	}
 
 	/**
-	 *  The method sets the cursor position to given koordinates ( within the text, not widget )
+	 *  The method sets the cursor position to given coordinates ( within the text, not widget )
 	 *  
 	 *  @param x new x cursor coordinate within the text
 	 *  @param y new y cursor coordinate within the text
@@ -640,6 +665,10 @@ public class TextComponent extends Widget {
 	}
 
 	private void setCursorLocation(int x, int y, boolean pageAlignment) {
+		Rectangle rect = getTextRectangle();
+		
+		if (rect==null) return;
+		
 		if (y < 0) {
 			_cursPosY = 0;
 		} else if (y >= _lines.size()) {
@@ -665,8 +694,8 @@ public class TextComponent extends Widget {
 
 		if (_firstChar > _cursPosX) {
 			_firstChar = _cursPosX;
-		} else if (_firstChar < (_cursPosX-getTextRectangle().getWidth()+1)) {
-			_firstChar = (_cursPosX-getTextRectangle().getWidth()+1);
+		} else if (_firstChar < (_cursPosX-rect.getWidth()+1)) {
+			_firstChar = (_cursPosX-rect.getWidth()+1);
 		}
 
 		if (pageAlignment) {
@@ -674,8 +703,8 @@ public class TextComponent extends Widget {
 		} else {
 			if (_firstLine > _cursPosY) {
 				_firstLine = _cursPosY;
-			} else if (_firstLine < (_cursPosY-getTextRectangle().getHeight()+1)) {
-				_firstLine = (_cursPosY-getTextRectangle().getHeight()+1);
+			} else if (_firstLine < (_cursPosY-rect.getHeight()+1)) {
+				_firstLine = (_cursPosY-rect.getHeight()+1);
 			}
 		}
 	}

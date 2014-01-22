@@ -34,3 +34,8 @@ Changed the algorithm of sorting widgets
 12/05/2013
 
 Added setLabel and getLabel methods to Label class
+
+01/22/2014
+
+Rewrite setVisible method in TextComponent.
+Now if a TextComponent is set to invisible, it disappears.

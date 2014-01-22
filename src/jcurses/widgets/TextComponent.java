@@ -25,8 +25,8 @@ public class TextComponent extends Widget {
 
 	private int _firstChar = 0;
 	private int _firstLine = 0;
-
-
+	
+	private boolean _focusable = true;
 
 	StringBuffer _text = new StringBuffer("");
 	ArrayList<Integer> _lines = new ArrayList<Integer>();
@@ -49,7 +49,6 @@ public class TextComponent extends Widget {
 		_width = width;
 		_height = height;
 		setText(text);
-
 	}
 
 
@@ -120,7 +119,6 @@ public class TextComponent extends Widget {
 		_text = new StringBuffer(text);
 		updateText(dispatchEvent);
 		reset();
-
 	}
 
 	private void reset() {
@@ -144,10 +142,9 @@ public class TextComponent extends Widget {
 	}
 
 	/**
-	 * F�r abgeleitete Klassen Textbreite und H�he und Koordinaten der oberen Rechten Ecke
+	 * Fabgeleitete Klassen Textbreite und Hund Koordinaten der oberen Rechten Ecke
 	 * des Sichtbaren Bereiches
 	 */
-
 	protected int getTextX() {
 		return _firstChar;
 	}
@@ -165,31 +162,21 @@ public class TextComponent extends Widget {
 
 	protected int getTextWidth() {
 		int result = 0;
-
 		for (int i=0; i<_lineLengths.size(); i++) {
 			int value = ((Integer)_lineLengths.get(i)).intValue();
 			if (value > result) {
 				result = value;
 			}
 		}
-
 		return result;
 	}
 
-
-
-
 	private void updateText(boolean dispatchEvent) {
-
-
-
-		//neu darstellen
 
 		_lines.clear();	
 		_lineLengths.clear();
 
 		String text = _text.toString();
-
 
 		int pos = 0;
 
@@ -216,14 +203,10 @@ public class TextComponent extends Widget {
 		}
 
 		//event abschicken
-
 		if (dispatchEvent) {
 			_listenerManager.handleEvent(new ValueChangedEvent(this));
 		}
-
-
 	}
-
 
 	/**
 	 *  This method draws text-dependent additional things such as scrollbars.
@@ -233,7 +216,6 @@ public class TextComponent extends Widget {
 		//nothing
 	}
 
-
 	/**
 	 *  This method refreshes text-dependent additional after a text change such as scrollbars.
 	 * As default it makes nothing, can be overriden in inherited classes ( for example text area)
@@ -242,13 +224,11 @@ public class TextComponent extends Widget {
 		//nothing
 	}
 
-
 	/**
 	 * The method returns the rectangle, within that the text is painted.
 	 * Is overrided by derived classes for example to implement a border.
 	 * 
 	 */
-
 	protected Rectangle getTextRectangle() {
 		Rectangle result =  getSize();
 		result.setLocation(getAbsoluteX(), getAbsoluteY());
@@ -256,11 +236,9 @@ public class TextComponent extends Widget {
 		return result;
 	}
 
-
 	private int getVisibleHeight() {
 		return getTextRectangle().getHeight();
 	}
-
 
 	private Rectangle getTextRectangle(int firstLine) {
 		Rectangle rect = getTextRectangle();
@@ -270,7 +248,6 @@ public class TextComponent extends Widget {
 		return rect;
 	}
 
-
 	private Rectangle getLineRectangle(int firstLine) {
 		Rectangle rect = getTextRectangle();
 		int y = ((firstLine - _firstLine)>=0)?(firstLine - _firstLine):0;
@@ -279,31 +256,32 @@ public class TextComponent extends Widget {
 		return rect;
 	}
 
-
-
 	private int getFirstLineNumber() {
-		/*int result = _cursPosY - getTextRectangle().getHeight()+1;
-		result = (result < 0)?0:result;*/
 		return _firstLine;
 	}
 
-
 	private int getFirstCharNumber() {
-		/*int result =  _cursPosX - getTextRectangle().getWidth()+1;
-		result = (result < 0)?0:result;*/
 		return _firstChar;
 	}
+	
+	//The default color of window
+	private static CharColor __bgDefaultColors = 
+			new CharColor(CharColor.WHITE, CharColor.WHITE);
+	
+	public CharColor getBgDefaultColors(){
+		return __bgDefaultColors;
+	}
 
-
-	private static CharColor __textComponentDefaultColors = new CharColor(CharColor.MAGENTA, CharColor.BLACK);
+	private static CharColor __textComponentDefaultColors = 
+			new CharColor(CharColor.MAGENTA, CharColor.BLACK);
 
 	public CharColor getDefaultColors() {
 		return __textComponentDefaultColors;
 	}
 
+	private static CharColor __focusedTextComponentDefaultColors = 
+			new CharColor(CharColor.BLUE, CharColor.WHITE, CharColor.REVERSE);
 
-
-	private static CharColor __focusedTextComponentDefaultColors = new CharColor(CharColor.BLUE, CharColor.WHITE, CharColor.REVERSE);
 	private CharColor _focusedTextComponentColors = getFocusedTextComponentDefaultColors();
 
 
@@ -370,9 +348,7 @@ public class TextComponent extends Widget {
 		for (int i=begin; i<_lines.size(); i++) {
 			drawLine(i);
 		}
-
 	}
-
 
 	private void drawLine(int index) {
 		Rectangle rect = getTextRectangle();
@@ -407,8 +383,6 @@ public class TextComponent extends Widget {
 	}
 
 	//Paging
-
-
 	private Paging getPaging() {
 		return new Paging(getVisibleHeight(), getTextHeight());
 	}
@@ -451,14 +425,10 @@ public class TextComponent extends Widget {
 		drawBox(getTextRectangle());
 	}
 
-
-	private void changeColors() {
+	private void changeColors(CharColor colors) {
 		Rectangle rect = getTextRectangle();
-		CharColor colors = hasFocus()?getFocusedTextComponentColors():getColors();
 		Toolkit.changeColors(rect, colors);
 	}
-
-
 
 	protected void doPaint() {
 		drawBox();
@@ -468,17 +438,18 @@ public class TextComponent extends Widget {
 		}
 	}
 
-
+	protected void setFocusable(boolean focusable){
+		this._focusable = focusable;
+	}
+	
 	protected boolean isFocusable() {
-		return true;
+		return _focusable;
 	}
 
 
 	protected void doRepaint() {
 		doPaint();
 	}
-
-
 
 	private char getCharacterAtCursorPosition() {
 		char result = 0;
@@ -493,17 +464,13 @@ public class TextComponent extends Widget {
 		return result;
 	}
 
-
-
 	private boolean isTextChanged(int x, int y) {
 		return !((_firstChar == x) && (_firstLine == y)); 
 	}
 
-
 	private boolean isCursorChanged(int x, int y) {
 		return !((_cursPosX == x) && (_cursPosY == y)); 
 	}
-
 
 	private void redrawAfterCursorMove(int bCursorPosX, int bCursorPosY, int bFirstChar, int bFirstLine, char bChar) {
 		if (isTextChanged(bFirstChar, bFirstLine)) {
@@ -514,13 +481,11 @@ public class TextComponent extends Widget {
 		}
 	}
 
-
 	private void redrawOldChar(int bCursorPosX, int bCursorPosY,char bChar) {
 		CharColor colors = hasFocus()?getFocusedTextComponentColors():getColors();
 		drawChar(bCursorPosX,bCursorPosY,colors,bChar);
 
 	}
-
 
 	private void redrawAfterTextChange(int bCursorPosX, int bCursorPosY, int bFirstChar, int bFirstLine) {
 		if (isTextChanged(bFirstChar, bFirstLine)) {
@@ -532,9 +497,7 @@ public class TextComponent extends Widget {
 			drawCursor();
 			refreshAdditionalThings();
 		}
-
 	}
-
 
 	private void redrawLine(int index) {
 		drawBox(getLineRectangle(index));
@@ -552,12 +515,9 @@ public class TextComponent extends Widget {
 	 * @param line a text line to replace, contains no line breaks
 	 * @return decoded line
 	 */
-
 	protected String replaceTextLineForPrinting(String line) {
 		return line;
 	}
-
-
 
 	protected boolean handleInput(InputChar ch) {
 
@@ -648,23 +608,26 @@ public class TextComponent extends Widget {
 	/**
 	 *  Aus Widget
 	 */
-
 	protected void focus() {
-		changeColors();
+		changeColors(this.getFocusedTextComponentColors());
 		drawCursor();
 	}
 
-
 	protected void unfocus() {
-		changeColors();
+		changeColors(this.getColors());
 		redrawOldChar(_cursPosX,_cursPosY,getCharacterAtCursorPosition());
-
 	}
 
-
-
-
-
+	public void setVisible(boolean visible) {
+		super.setVisible(visible);
+		if (visible){
+			changeColors(this.getColors());
+			this.setFocusable(true);
+		}else{
+			changeColors(this.getBgDefaultColors());
+			this.setFocusable(false);
+		}
+	}
 
 	/**
 	 *  The method sets the cursor position to given koordinates ( within the text, not widget )
@@ -715,9 +678,6 @@ public class TextComponent extends Widget {
 				_firstLine = (_cursPosY-getTextRectangle().getHeight()+1);
 			}
 		}
-
-
-
 	}
 
 
@@ -757,17 +717,13 @@ public class TextComponent extends Widget {
 
 
 	//Listener 
-
 	private ValueChangedListenerManager _listenerManager = new ValueChangedListenerManager();
-
 
 	public void addListener(ValueChangedListener listener) {
 		_listenerManager.addListener(listener);
 	}
 
-
 	public void removeListener(ValueChangedListener listener) {
 		_listenerManager.removeListener(listener);
 	}
-
 }

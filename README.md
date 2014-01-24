@@ -39,3 +39,8 @@ Added setLabel and getLabel methods to Label class
 
 Rewrite setVisible method in TextComponent.
 Now if a TextComponent is set to invisible, it disappears.
+
+01/24/2014
+
+Allows user to pick up items in List using number keys (1 to 9).
+Notice: No support to index larger than 9.

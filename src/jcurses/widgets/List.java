@@ -42,6 +42,9 @@ public class List extends Widget implements IScrollable {
 
 	private ScrollbarPainter _scrollbars = null;
 
+	private static final InputChar ONE = new InputChar('1');
+	
+	private static final InputChar NINE = new InputChar('9');
 
 	/**
 	 *  The constructor 
@@ -841,7 +844,7 @@ public class List extends Widget implements IScrollable {
 		if (_items.size() == 0) {
 			return false;
 		}
-
+		
 		if (ch.getCode() == InputChar.KEY_RIGHT) {
 			if (incrementStartPos()) {
 				refresh();
@@ -892,10 +895,29 @@ public class List extends Widget implements IScrollable {
 		} else if (ch.equals(__callItemChar)) {
 			callItem(_trackedIndex);
 			return true;
+		} else if (ch.getCode()>=ONE.getCode() && ch.getCode()<=NINE.getCode()){
+			this.updateIndex(ch);
+			return true;
 		}
 
-
 		return false;
+	}
+	
+	/**
+	 * When user types in a digit, update current index
+	 * @param ch
+	 */
+	private void updateIndex(InputChar ch){
+		if (ch.getCode()<ONE.getCode() || ch.getCode()>NINE.getCode()){
+			return;
+		}
+		int currentIndex = ch.getCode()-ONE.getCode();
+		int itemCount = this.getItemsCount();
+		if (currentIndex>=0 && currentIndex<itemCount){
+			int backupTrackedIndex = _trackedIndex;
+			_trackedIndex = currentIndex;
+			redraw(true, _trackedIndex, backupTrackedIndex);
+		}
 	}
 
 

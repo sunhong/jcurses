@@ -44,3 +44,10 @@ Now if a TextComponent is set to invisible, it disappears.
 
 Allows user to pick up items in List using number keys (1 to 9).
 Notice: No support to index larger than 9.
+
+02/07/2014
+
+1. Add RadioButton class
+2. Add ToggleButton class, this is the base of CheckBox and RadioButton
+3. Add ToggleButtonGroup class. It holds a set of ToggleButton, but at most one of them can be selected.
+

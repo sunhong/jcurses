@@ -7,11 +7,11 @@ package jcurses.event;
 */
 public class ItemListenerManager extends ListenerManager {
 	
-	protected void doHandleEvent(Event event, Object listener) {
+	protected void doHandleEvent(Event event, Listener listener) {
 		((ItemListener)listener).stateChanged((ItemEvent)event);
 	}
 	
-	protected void verifyListener(Object listener) {
+	protected void verifyListener(Listener listener) {
 		if (!(listener instanceof ItemListener)) {
 			throw new RuntimeException("illegal listener type");
 		}

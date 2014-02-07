@@ -248,7 +248,7 @@ public abstract class Widget {
 	private boolean _focus = false;
 	
     /**
-    *  @return true, if the widget has currenty focus,that is handles input, in othe case false
+    *  @return true, if the widget has currenty focus,that is handles input, in other case false
     */
 	public boolean hasFocus() {
 		return _focus;

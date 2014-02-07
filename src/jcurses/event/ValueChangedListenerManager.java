@@ -7,11 +7,11 @@ package jcurses.event;
 */
 public class ValueChangedListenerManager extends ListenerManager {
 	
-	protected void doHandleEvent(Event event, Object listener) {
+	protected void doHandleEvent(Event event, Listener listener) {
 		((ValueChangedListener)listener).valueChanged((ValueChangedEvent)event);
 	}
 	
-	protected void verifyListener(Object listener) {
+	protected void verifyListener(Listener listener) {
 		if (!(listener instanceof ValueChangedListener)) {
 			throw new RuntimeException("illegal listener type");
 		}

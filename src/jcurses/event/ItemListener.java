@@ -3,7 +3,7 @@ package jcurses.event;
 /**
 *  The interface has to be implemented to listen on instances of <code>ItemEvent</code>
 */
-public interface ItemListener {
+public interface ItemListener extends Listener {
 	
     /**
     *  The method will be called by an widget, generating <code>ItemEvent</code> instances,

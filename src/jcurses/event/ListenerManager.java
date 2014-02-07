@@ -11,7 +11,7 @@ import java.util.Vector;
 */
 public abstract class ListenerManager {
 	
-	private Vector _listeners = new Vector();
+	private Vector<Listener> _listeners = new Vector<Listener>();
 	
     
     /**
@@ -20,7 +20,7 @@ public abstract class ListenerManager {
     * @param listener The listener to be added. The listener must be of right type for 
     * listened events.
     */
-	public void  addListener(Object listener) {
+	public void  addListener(Listener listener) {
 		verifyListener(listener);
 		_listeners.add(listener);
 	}
@@ -31,7 +31,7 @@ public abstract class ListenerManager {
     * 
     * @param listener The listener to be removed from the list. 
     */
-	public void  removeListener(Object listener) {
+	public void  removeListener(Listener listener) {
 		_listeners.remove(listener);
 	}
 	
@@ -57,14 +57,14 @@ public abstract class ListenerManager {
     * @param event event to be handled
     * @param listener listener to handle
     */
-	protected abstract void doHandleEvent(Event event, Object listener);
+	protected abstract void doHandleEvent(Event event, Listener listener);
 	
     /**
     *  The method verifies an listener object to be of the right type for this listener manager
     * 
     * @param listener listener to be verified
     */
-	protected abstract void verifyListener(Object listener);
+	protected abstract void verifyListener(Listener listener);
     
     /**
     *  The method verifies an event object to be of the right type for this listener manager

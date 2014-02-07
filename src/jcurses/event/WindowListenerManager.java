@@ -7,11 +7,11 @@ package jcurses.event;
 */
 public class WindowListenerManager extends ListenerManager {
 	
-	protected void doHandleEvent(Event event, Object listener) {
+	protected void doHandleEvent(Event event, Listener listener) {
 		((WindowListener)listener).windowChanged((WindowEvent)event);
 	}
 	
-	protected void verifyListener(Object listener) {
+	protected void verifyListener(Listener listener) {
 		if (!(listener instanceof WindowListener)) {
 			throw new RuntimeException("illegal listener type");
 		}

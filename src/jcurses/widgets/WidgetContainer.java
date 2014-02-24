@@ -45,7 +45,7 @@ public abstract class WidgetContainer extends Widget {
 		Toolkit.setClipRectangle(getChildsClippingRectangle());
 	  	for (int i=0; i<_widgets.size(); i++) {
 		    Widget widget = (Widget)_widgets.elementAt(i);
-		 	widget.paint();
+		 	if (widget.isVisible()) widget.paint();
 	  	}
 		Toolkit.unsetClipRectangle();
 	}
@@ -62,7 +62,7 @@ public abstract class WidgetContainer extends Widget {
 	   Toolkit.setClipRectangle(getChildsClippingRectangle());
 	   for (int i=0; i<_widgets.size(); i++) {
 		 Widget widget = (Widget)_widgets.elementAt(i);
-		 widget.repaint(); 
+		 if (widget.isVisible()) widget.repaint(); 
        }
 	   Toolkit.unsetClipRectangle();
 

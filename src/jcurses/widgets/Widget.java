@@ -184,7 +184,6 @@ public abstract class Widget {
     */
 	protected void setSize(Rectangle size) {
 		_size = size;
-		
 	}
 	
 	

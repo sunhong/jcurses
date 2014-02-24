@@ -49,6 +49,7 @@ public class Label extends Widget {
 	 */
 	public void setLabel(String label) {
 		this._label = label;
+		this.setSize(getPreferredSize());
 		this.doPaint();
 	}
 	
@@ -81,7 +82,7 @@ public class Label extends Widget {
 	}
 	
 	protected void doPaint() {
-		Rectangle rect = (Rectangle)getSize().clone();
+		Rectangle rect = (Rectangle)this.getSize();
 		rect.setLocation(getAbsoluteX(), getAbsoluteY());
 		Toolkit.drawRectangle(rect, __labelDefaultColors);
 		Toolkit.printString(_label, rect, getColors());

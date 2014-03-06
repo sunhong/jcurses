@@ -458,7 +458,7 @@ public class TextComponent extends Widget {
 		}
 	}
 
-	protected void setFocusable(boolean focusable){
+	public void setFocusable(boolean focusable){
 		this._focusable = focusable;
 	}
 

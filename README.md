@@ -51,3 +51,6 @@ Notice: No support to index larger than 9.
 2. Add ToggleButton class, this is the base of CheckBox and RadioButton
 3. Add ToggleButtonGroup class. It holds a set of ToggleButton, but at most one of them can be selected.
 
+03/05/2014
+
+Make setFocusable method in TextComponent public

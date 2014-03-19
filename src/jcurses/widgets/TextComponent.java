@@ -28,6 +28,8 @@ public class TextComponent extends Widget {
 
 	private boolean _focusable = true;
 
+	private boolean _editable = true;
+
 	StringBuffer _text = new StringBuffer("");
 	ArrayList<Integer> _lines = new ArrayList<Integer>();
 	ArrayList<Integer> _lineLengths = new ArrayList<Integer>();
@@ -346,7 +348,7 @@ public class TextComponent extends Widget {
 	private void drawChar(int x, int y, CharColor colors, char c) {
 		Rectangle rect = this.getTextRectangle();
 		if (rect!=null){
-			int x1 = x-_firstChar;
+			int x1 = x - _firstChar;
 			int y1 = y - _firstLine;
 			String toPrint = (c == 0)?" ":replaceTextLineForPrinting(""+c);
 			Toolkit.printString(toPrint, rect.getX()+x1, rect.getY()+y1, colors);
@@ -462,10 +464,17 @@ public class TextComponent extends Widget {
 		this._focusable = focusable;
 	}
 
-	protected boolean isFocusable() {
+	public void setEditable(boolean editable){
+		this._editable = editable;
+	}
+
+	public boolean isFocusable() {
 		return _focusable;
 	}
 
+	public boolean isEditable() {
+		return _editable;
+	}
 
 	protected void doRepaint() {
 		doPaint();
@@ -596,32 +605,35 @@ public class TextComponent extends Widget {
 			setCursorLocation(_cursPosX, newYPos, true);
 			redrawAfterCursorMove(bCursorPosX,bCursorPosY,bFirstChar,bFirstLine,bChar);
 		} else if (ch.getCode() == InputChar.KEY_BACKSPACE) {
-			deleteCharBeforeCursorLocation();
-			if (_cursPosX == 0) {
-				if (_cursPosY > 0) {
-					int y = _cursPosY-1;
-					if (y<0) {
-						y=0;
+			if (this.isEditable()){
+				deleteCharBeforeCursorLocation();
+				if (_cursPosX == 0) {
+					if (_cursPosY > 0) {
+						int y = _cursPosY-1;
+						if (y<0) {
+							y=0;
+						}
+						int x = ((Integer) _lineLengths.get(y)).intValue();
+						setCursorLocation(x,y);
+						redrawAfterTextChange(bCursorPosX, bCursorPosY, bFirstChar, bFirstLine);
 					}
-					int x = ((Integer) _lineLengths.get(y)).intValue();
-					setCursorLocation(x,y);
-					redrawAfterTextChange(bCursorPosX, bCursorPosY, bFirstChar, bFirstLine);
+				} else {
+					setCursorLocation(_cursPosX-1, _cursPosY); 
+					redrawLine(_cursPosY);
 				}
-			} else {
-				setCursorLocation(_cursPosX-1, _cursPosY); 
-				redrawLine(_cursPosY);
 			}
-
 			return true;
 		} else if (!ch.isSpecialCode()) {
 			char c =  ch.getCharacter();
-			insertCharAtCursorLocation(c);
-			if ( c == '\n') {
-				setCursorLocation(0, _cursPosY+1);
-				redrawAfterTextChange(bCursorPosX, bCursorPosY, bFirstChar, bFirstLine);
-			} else {
-				setCursorLocation(_cursPosX+1, _cursPosY);
-				redrawLine(_cursPosY);
+			if (this.isEditable()){
+				insertCharAtCursorLocation(c);
+				if ( c == '\n') {
+					setCursorLocation(0, _cursPosY+1);
+					redrawAfterTextChange(bCursorPosX, bCursorPosY, bFirstChar, bFirstLine);
+				} else {
+					setCursorLocation(_cursPosX+1, _cursPosY);
+					redrawLine(_cursPosY);
+				}
 			}
 			return true;
 		}
@@ -666,9 +678,9 @@ public class TextComponent extends Widget {
 
 	private void setCursorLocation(int x, int y, boolean pageAlignment) {
 		Rectangle rect = getTextRectangle();
-		
+
 		if (rect==null) return;
-		
+
 		if (y < 0) {
 			_cursPosY = 0;
 		} else if (y >= _lines.size()) {
@@ -723,6 +735,13 @@ public class TextComponent extends Widget {
 			_text.deleteCharAt(pos-1);
 		}
 		updateText();
+	}
+
+	/**
+	 * Public method for repaint
+	 */
+	public void refresh(){
+		this.doRepaint();
 	}
 
 

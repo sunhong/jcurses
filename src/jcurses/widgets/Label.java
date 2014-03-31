@@ -44,13 +44,25 @@ public class Label extends Widget {
 	}
 	
 	/**
+	 * Clear text
+	 */
+	protected void clear() {
+		Rectangle rect = this.getSize();
+		rect.setLocation(getAbsoluteX(), getAbsoluteY());
+		Toolkit.drawRectangle(rect, __labelDefaultColors);
+	}
+	
+	/**
 	 * Set label
 	 * @param label
 	 */
 	public void setLabel(String label) {
+		this.clear();
 		this._label = label;
-		this.setSize(getPreferredSize());
-		this.doPaint();
+		Rectangle rect = this.getPreferredSize();
+		this.setSize(rect);
+		rect.setLocation(getAbsoluteX(), getAbsoluteY());
+		Toolkit.printString(_label, rect, getColors());
 	}
 	
 	/**

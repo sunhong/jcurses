@@ -338,8 +338,8 @@ JNIEXPORT void JNICALL Java_jcurses_system_Toolkit_printString (JNIEnv * env, jc
 	int j=0;
 	int xpos,ypos;
 	int length = (*env)->GetArrayLength(env,bytes);
-	unsigned char c;
-	unsigned char * charArray = (*env)->GetByteArrayElements(env, bytes, NULL);
+    unsigned char c;
+    jbyte * charArray = (*env)->GetByteArrayElements(env, bytes, NULL);
 
 	
 	attrset(JCURSES_ATTRIBUTES(number,attr));
@@ -348,7 +348,7 @@ JNIEXPORT void JNICALL Java_jcurses_system_Toolkit_printString (JNIEnv * env, jc
 	ypos=y;
 	
 	for (j=0; j<length; j++) {
-		c = charArray[j];
+		c = (unsigned char)charArray[j];
 		if (c!='\r') {
 			xpos++;
 			if ((xpos == x+width) && (c!='\n')) {

@@ -7,12 +7,12 @@ public class Grid {
 	private int [] _widths;
 	private int [] _heights;
 
-	/**
+	/*
 	 * Constructor of Grid
 	 * @param rect Rectangular area
 	 * @param width Number of columns
 	 * @param height Number of rows
-	 */
+	 **/
 	Grid(Rectangle rect, int width, int height) {
 		if (((rect.getWidth()/width) <1) || ((rect.getHeight()/height) <1)) {
 			throw new RuntimeException (" the grid is to fine: "+rect.getWidth()+":"+rect.getHeight()+":"+width+":"+height);
@@ -40,14 +40,14 @@ public class Grid {
 		}
 	}
 
-	/**
+	/*
 	 * Get the rectangle composed by one or more grids
 	 * @param x Row index of top-left grid
 	 * @param y Column index of top-left grid
 	 * @param width Number of columns 
 	 * @param height Number of rows
 	 * @return
-	 */
+	 **/
 	Rectangle getRectangle(int x, int y, int width, int height) {
 		return new Rectangle(getWidth(_widths, 0,x), getWidth(_heights, 0,y), getWidth(_widths, x,x+width), 
 				getWidth(_heights, y, y+height));

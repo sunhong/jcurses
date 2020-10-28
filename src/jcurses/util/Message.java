@@ -10,12 +10,12 @@ import jcurses.widgets.WidgetsConstants;
 
 import java.util.StringTokenizer;
 
-/**
+/*
  *  This is a class to create and show user defined messages.
  *  Such message is a dialog with an user defined title, containing
  * an user defined text and a button to close the window with an user 
  * defined label.
- */
+ **/
 
 public class Message  extends Dialog implements ActionListener  {
 
@@ -25,14 +25,14 @@ public class Message  extends Dialog implements ActionListener  {
 	Button _button = null;
 	Label _label = null;
 
-	/**
+	/*
 	 *  The constructor
 	 * 
 	 * @param title the message's title
 	 * @param text the message's text
 	 * @param buttonLabel the label on the message's button
 	 * 
-	 */
+	 **/
 	public Message(String title, String text, String buttonLabel) {
 		super(getWidth(text, title)+4, getHeight(text)+7,true,title);
 
@@ -85,9 +85,9 @@ public class Message  extends Dialog implements ActionListener  {
 		return result;
 	}
 
-	/**
+	/*
 	 *  Required for implementing <code>jcurses.event.ActionListener</code>
-	 */
+	 **/
 	public void actionPerformed(ActionEvent event) {
 		close();
 	}

@@ -1,10 +1,10 @@
 
 package jcurses.util;
 
-/**
+/*
 *  This a library-intern class for performance meausrement.
 *  The class isn't needed to develop jcurses applications  
-*/
+**/
 public class Profiler {
 	
 	private static long [] marks = {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};

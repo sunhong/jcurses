@@ -1,11 +1,11 @@
 package jcurses.widgets;
 
-/**
+/*
 * This class is used for menus, that is a list, that prohibites items selection
 * (only invocation with 'enter' is possible). Also there is a possbility to add
 * so called separator items, that are items with customited  text (per default empty) that cann't be invoked
 * und are used only for optical purposes.
-*/
+**/
 
 
 import jcurses.system.InputChar;
@@ -17,23 +17,23 @@ public class MenuList extends List {
 	private static final String SEPARATOR = "\u0000\u0000\u0000\u0000";
 	private static final String SEPARATOR_STRING = "";
 	
-    /**
+    /*
     * Adds a separator at the specified position
     * 
     * @param index position to add a separator
     * 
-    */
+    **/
 	public void addSeparator(int index) {
 		add(index, SEPARATOR);
 	}
 	
 	
-    /**
+    /*
     * Adds a separator at the end of the list
     * 
     * @param index position to add a separator
     * 
-    */
+    **/
 	public void addSeparator() {
 		addSeparator(getItemsCount());
 	}
@@ -64,23 +64,23 @@ public class MenuList extends List {
 	
 	private String _separatorString = SEPARATOR_STRING;
 	
-     /**
+     /*
     * Returns the text used by painting separators
     * 
     * @return separator string
     * 
-    */
+    **/
 	public String getSeparatorString() {
 		return _separatorString;
 	}
 	
 	
-    /**
+    /*
     * Sets the text to use by painting separators
     * 
     * @param value separator string
     * 
-    */
+    **/
 	public void setSeparatorString(String value) {
 		_separatorString = value;
 	}

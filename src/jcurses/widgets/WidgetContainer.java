@@ -1,8 +1,8 @@
-/**
+/*
 * Die Klasse ist die Root-Klasse aller Container-Klassen.
 * Ihre Aufgabe besteht darin eine Reihe von Widgets zu verwalten,
 * die Eingabe an Sie weitezuleiten etc
-*/
+**/
 
 package jcurses.widgets;
 
@@ -13,10 +13,10 @@ import jcurses.util.Rectangle;
 import java.util.Hashtable;
 import java.util.Vector;
 
-/**
+/*
 *  This class is a superclass for widget containers,
 * that is, for widgets, that can contain other widgets
-*/
+**/
 public abstract class WidgetContainer extends Widget {
 	
 	
@@ -24,10 +24,10 @@ public abstract class WidgetContainer extends Widget {
 	private Hashtable<Widget, LayoutConstraint> _constraints = new Hashtable<Widget, LayoutConstraint>();
 	
 	
-	/**
+	/*
 	*  The method paits the container self, that is all except childrens.
     * Is called by <code>doPaint</code>. Must be overrided by derived classes.
-	*/
+	**/
 	protected abstract void paintSelf();
 	
 	
@@ -50,10 +50,10 @@ public abstract class WidgetContainer extends Widget {
 		Toolkit.unsetClipRectangle();
 	}
 	
-	/**
+	/*
 	*  The method repaints the container self, that is all, except childrens.
     * Is called by <code>doRepaint</code>. Must be overrided by derived classes.
-	*/
+	**/
 	protected abstract void repaintSelf();
 	
 	
@@ -77,18 +77,18 @@ public abstract class WidgetContainer extends Widget {
 		Rectangle clip = rect.intersection(widgetRectangle);
 		return clip;
 		
-	}*/
+	}**/
 	
 	private void packChild(Widget widget, LayoutConstraint constraint) {
 		getLayoutManager().layout(widget, constraint);
 	}
     
 	
-    /**
+    /*
     *  The method layouts all children of the widget,
     * using containers layout manager. The method is called by framework,
     * before it paints a window-
-    */
+    **/
 	protected void pack() {
 		for (int i=0; i<_widgets.size(); i++) {
 			Widget widget = (Widget)_widgets.elementAt(i);
@@ -99,14 +99,14 @@ public abstract class WidgetContainer extends Widget {
 		}
 	}
 	
-	/**
+	/*
 	* The method adds a widget to the container, declaring widget's lyouting constraints.
     * This method is called by layout manager and cann't be called by developer. To add
     * a widget to the container, a developer must use methods of container's layout manager.
     * 
     * @param widget widget to add
     * @constraint layouting constraints
-	*/
+	**/
 	
 	protected void addWidget(Widget widget, LayoutConstraint constraint) {
 		_widgets.add(widget);
@@ -115,14 +115,14 @@ public abstract class WidgetContainer extends Widget {
 	}
 	
 	
-	/**
+	/*
 	* The method removes a widget from the container.
     * This method is called by layout manager and cann't be called by developer. To remove
     * a widget from the container, a developer must use methods of container's layout manager.
     * 
     * @param widget widget to remove 
 	* 
-	*/
+	**/
 	protected void removeWidget(Widget widget) {
 		_widgets.remove(widget);
 		_constraints.remove(widget);
@@ -130,11 +130,11 @@ public abstract class WidgetContainer extends Widget {
 	}
 	
 	
-	/**
+	/*
 	* The method returns a list of input widgets within the container.
     * 
     * @return input widgets within container
-	*/
+	**/
     protected Vector<Widget> getListOfFocusables() {
 		Vector<Widget> result  = new Vector<Widget>();
 		for (int i=0; i< _widgets.size(); i++) {
@@ -149,11 +149,11 @@ public abstract class WidgetContainer extends Widget {
 	}
 	
 	
-	/**
+	/*
 	* The method returns a list of  widgets, that can handle shortcuts,  within the container.
     * 
     * @return widgets within container, that can handle shortcuts 
-	*/
+	**/
     protected Vector<Widget> getListOfWidgetsWithShortCuts() {
 		Vector<Widget> result  = new Vector<Widget>();
 		for (int i=0; i< _widgets.size(); i++) {
@@ -168,25 +168,25 @@ public abstract class WidgetContainer extends Widget {
 		return result;		
 	}
 	
-	/**
+	/*
 	* This method returns the rectangle, that is used as painting surface for container's children
     * If null is returned, the entire container's surface is used.
-	*/
+	**/
 	protected Rectangle getChildsRectangle() {
 		return null;
 	}
 
 
-	/**
+	/*
 	*  LayoutManager
-	*/	
+	**/	
 	private LayoutManager _layoutManager = null;
 
-    /**
+    /*
     *  The method sets container's layout manager
     * 
     * @param layoutManager new layout manager
-    */
+    **/
 	public void setLayoutManager(LayoutManager layoutManager) {
 		//if (_layoutManager!=null) {
 		//	_layoutManager.unbindFromContainer();
@@ -195,9 +195,9 @@ public abstract class WidgetContainer extends Widget {
 		//_layoutManager.bindToContainer(this);
 	}
 	
-    /**
+    /*
     *  @return container's layout manager
-    */
+    **/
 	public LayoutManager getLayoutManager() {
 		//if (_layoutManager == null) {
 		//	setLayoutManager(new DefaultLayoutManager());

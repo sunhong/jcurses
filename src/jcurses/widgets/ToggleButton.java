@@ -8,9 +8,9 @@ import jcurses.system.InputChar;
 import jcurses.system.Toolkit;
 import jcurses.util.Rectangle;
 
-/**
+/*
  * The base class of RadioButton and CheckBox
- */
+ **/
 public abstract class ToggleButton extends Widget {
 	
 	protected ValueChangedListenerManager _listenerManager = new ValueChangedListenerManager();
@@ -33,17 +33,17 @@ public abstract class ToggleButton extends Widget {
 		return _focusedDefaultColors;
 	}
 
-	/**
+	/*
 	 *  @return focused colors
-	 */
+	 **/
 	public CharColor getFocusedColors() {
 		return _focusedColors;
 	}
 
-	/**
+	/*
 	 *  Sets colors of the toggle button in focused state.
 	 *  @param colors colors when it is focused
-	 */
+	 **/
 	public void setFocusedColors(CharColor colors) {
 		_focusedColors = colors;
 	}
@@ -101,18 +101,18 @@ public abstract class ToggleButton extends Widget {
 		doPaint();
 	}
 	
-	/**
+	/*
 	 *  Adds listener to the checkbox to track states changes
 	 * @param listener listener to add
-	 */
+	 **/
 	public void addListener(ValueChangedListener listener) {
 		_listenerManager.addListener(listener);
 	}
 
-	/**
+	/*
 	 *  Removes listener from the checkbox
 	 * @param listener to remove
-	 */
+	 **/
 	public void removeListener(ValueChangedListener listener) {
 		_listenerManager.removeListener(listener);
 	}

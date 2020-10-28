@@ -2,12 +2,12 @@ package jcurses.widgets;
 
 import jcurses.util.Rectangle;
 
-/**
+/*
  *  This is a default layout manager. The constraints state for each widget 
  * to layout a coordinates of the rectangle, within that the widget is placed
  * and the alignment of the widget, if its preferred size is smaller as the rectangle's
  * size-
- */
+ **/
 public class DefaultLayoutManager extends LayoutManager implements WidgetsConstants {
 
 	//private WidgetContainer _father = null;
@@ -78,7 +78,7 @@ public class DefaultLayoutManager extends LayoutManager implements WidgetsConsta
 	}
 
 
-	/**
+	/*
 	 *  Adds a widget to the boundeb container
 	 * 
 	 * @param widget widget to be added
@@ -90,7 +90,7 @@ public class DefaultLayoutManager extends LayoutManager implements WidgetsConsta
 	 * <code>WidgetConstraints.ALIGNMENT_CENTER</code>,<code>WidgetConstraints.ALIGNMENT_TOP</code>,<code>WidgetConstraints.ALIGNMENT_BOTTOM</code>
 	 * @param horizontalConstraint vertical alignment constraint, Following values are possible:
 	 *  * <code>WidgetConstraints.ALIGNMENT_CENTER</code>,<code>WidgetConstraints.ALIGNMENT_LEFT</code>,<code>WidgetConstraints.ALIGNMENT_RIGHT</code>
-	 */
+	 **/
 
 	public void addWidget(Widget widget, int x, int y, int width, int height, int verticalConstraint, int horizontalConstraint) 
 	throws IllegalArgumentException{
@@ -103,11 +103,11 @@ public class DefaultLayoutManager extends LayoutManager implements WidgetsConsta
 	}
 
 
-	/**
+	/*
 	 *  Removes a widget from the container
 	 * 
 	 * @param widget widget to be removed
-	 */
+	 **/
 
 	public void removeWidget(Widget widget) {
 		_father.removeWidget(widget);

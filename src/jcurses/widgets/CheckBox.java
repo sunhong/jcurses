@@ -6,26 +6,26 @@ import jcurses.system.Toolkit;
 
 import jcurses.util.Rectangle;
 
-/**
+/*
  *  This class implements a checkbox widget. This checkboxes state is modified
  * by typing a special char (default 'space'). You can register listeners by this
  * widget to track state changes.
- */
+ **/
 public class CheckBox extends ToggleButton {
 
-	/**
+	/*
 	 *  The constructor.
 	 * 
 	 * @param checked true, if the checkbox is checked at first time, false otherwise
-	 */
+	 **/
 	public CheckBox(boolean selected) {
 		this._selected = selected;
 	}
 
 
-	/**
+	/*
 	 *  The constructor creates an unchecked checkbox
-	 */
+	 **/
 	public CheckBox() {
 		this(false);
 	}

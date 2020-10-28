@@ -1,6 +1,6 @@
 package jcurses.system;
 
-/**
+/*
  *  Instances of this class are used by painting to set color attributes of painted chars.
  *  Both black-white mode and color mode attributes can ( and must be) be declared.
  * For the color mode, colors of the background an the foreground can be declared, for the background
@@ -18,7 +18,7 @@ package jcurses.system;
  *           <br><code>BOLD</code>
  *           <br><code>NORMAL</code>
  *           <br><code>REVERSE</code> 
- */
+ **/
 public class CharColor {
 
 	//color constants
@@ -45,14 +45,14 @@ public class CharColor {
 
 	private short _colorAttribute=0;
 
-	/**
+	/*
 	 *  The constructor
 	 * 
 	 * @param background background color
 	 * @param foreground foreground color
 	 * @param black-white mode attribute
 	 * @param color mode attribute
-	 */
+	 **/
 	public  CharColor(short background, short foreground, short blackWhiteAttribute, short colorAttribute) {
 		verifyColor(background);
 		verifyColor(foreground);
@@ -65,35 +65,35 @@ public class CharColor {
 		initChtype();
 	}
 
-	/**
+	/*
 	 *  The constructor
 	 * 
 	 * @param background background color
 	 * @param foreground foreground color
 	 * @param black-white mode attribute
 	 * color mode attribute will be set to <code>NORMAL</code>
-	 */
+	 **/
 	public  CharColor(short background, short foreground, short blackWhiteAttribute) {
 		this(background, foreground, NORMAL, NORMAL);
 	}
 
-	/**
+	/*
 	 *  The constructor, sets both the black-white mode attribute and the color mode attribute to <code>NORMAL</code>
 	 * 
 	 * @param background background color
 	 * @param foreground foreground color
 	 * 
-	 */
+	 **/
 	public  CharColor(short background, short foreground) {
 		this(background, foreground, NORMAL);
 	}
 
 
-	/**
+	/*
 	 *  The method sets the background color
 	 * 
 	 * @param background value to be set
-	 */
+	 **/
 	public void setBackground(short background) {
 		verifyColor(background);
 		_background = background;
@@ -102,11 +102,11 @@ public class CharColor {
 
 
 
-	/**
+	/*
 	 *  The method sets the foreground color
 	 * 
 	 * @param foreground value to be set
-	 */
+	 **/
 	public void setForeground(short foreground) {
 		verifyColor(foreground);
 		_foreground = foreground;
@@ -114,49 +114,49 @@ public class CharColor {
 	}
 
 
-	/**
+	/*
 	 *  @return the background color
-	 */
+	 **/
 	public short getBackground() {
 		return _background;
 	}
 
 
-	/**
+	/*
 	 * @return the foreground color
-	 */
+	 **/
 	public  short getForeground() {
 		return _foreground;
 	}
 
 
-	/**
+	/*
 	 * @return the black-white mode attribute
-	 */
+	 **/
 	public short getBlackWhiteAttribute() {
 		return _blackWhiteAttribute;
 	}
 
-	/**
+	/*
 	 * Sets the black-white mode attribute
 	 * @param blackWhiteAttribute new   black-white mode attribute
-	 */
+	 **/
 
 	public void setBlackWhiteAttribute(short blackWhiteAttribute)  {
 		_blackWhiteAttribute = blackWhiteAttribute;
 	}
 
-	/**
+	/*
 	 * @return the color mode attribute
-	 */
+	 **/
 	public short getColorAttribute() {
 		return _colorAttribute;
 	}
 
-	/**
+	/*
 	 * Sets the color mode attribute
 	 * @param colorAttribute new color mode attribute
-	 */
+	 **/
 
 	public void setColorAttribute(short colorAttribute)  {
 		_colorAttribute = colorAttribute;

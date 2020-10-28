@@ -1,8 +1,8 @@
 
-/**
+/*
  *  This class implements a list widget to select and 'invoke' one ore more items.
  * Listeners can be registered to track selecting deselecting and 'invoking' of items.
- */
+ **/
 package jcurses.widgets;
 
 
@@ -46,7 +46,7 @@ public class List extends Widget implements IScrollable {
 	
 	private static final InputChar NINE = new InputChar('9');
 
-	/**
+	/*
 	 *  The constructor 
 	 * 
 	 * @param visibleSize number of visible items. If the entire number of items 
@@ -56,7 +56,7 @@ public class List extends Widget implements IScrollable {
 	 * @param multiple true, if more as one items can be selected a time, false, if only
 	 * one item can be selected at a time, in this case selecting of an item causes deselecting
 	 * of the previous selected item.
-	 */
+	 **/
 	public List(int visibleSize, boolean multiple) {
 		_visibleSize = visibleSize;
 		_multiple = multiple;
@@ -64,21 +64,21 @@ public class List extends Widget implements IScrollable {
 	}
 
 
-	/**
+	/*
 	 *  The constructor.
 	 * @param visibleSize number of visible items. If the entire number of items 
 	 * is more, the widget scrolls items 'by a window'. If -1 is given, than the 
 	 * visible size is defined dependent of the layout size, that is, the widget
 	 * has no preferred y size.
 	 * 
-	 */
+	 **/
 	public List (int visibleSize) {
 		this(visibleSize, false);
 	}
 
-	/**
+	/*
 	 *  The constructor
-	 */
+	 **/
 	public List() {
 		this(-1, false);
 	}
@@ -95,18 +95,18 @@ public class List extends Widget implements IScrollable {
 	}
 
 
-	/**
+	/*
 	 *  @return colors used painting selected items.
-	 */
+	 **/
 	public CharColor getSelectedItemColors() {
 		return _selectedItemColors;
 	}
 
-	/**
+	/*
 	 *  Sets colors used painting selected items.
 	 * 
 	 * @param colors colors used painting selected items
-	 */
+	 **/
 	public void setSelectedItemColors(CharColor colors) {
 		_selectedItemColors = colors;
 	}
@@ -120,35 +120,35 @@ public class List extends Widget implements IScrollable {
 		return __titleDefaultColors;
 	}
 
-	/**
+	/*
 	 *  @return colors used painting the title
-	 */
+	 **/
 	public CharColor getTitleColors() {
 		return _titleColors;
 	}
 
-	/**
+	/*
 	 *  Sets colors used painting the title
 	 * 
 	 * @param colors colors used painting the title
-	 */
+	 **/
 	public void setTitleColors(CharColor colors) {
 		_titleColors = colors;
 	}
 
 
-	/**
+	/*
 	 *  @return list's title
-	 */
+	 **/
 	public String getTitle() {
 		return _title;
 	}
 
 
-	/**
+	/*
 	 *  Sets the title of the list. 
 	 * @param title the title of the list
-	 */
+	 **/
 	public void setTitle(String title) {
 		_title = title;
 	}
@@ -165,12 +165,12 @@ public class List extends Widget implements IScrollable {
 
 
 
-	/**
+	/*
 	 *  Adds an item to the list at the specified position
 	 * 
 	 * @param pos the position to insert the item
 	 * @param item item to add
-	 */
+	 **/
 	public void add(int pos, String item) {
 		_items.add(pos, item);
 		_selected.add(pos, new Boolean(false));
@@ -178,39 +178,39 @@ public class List extends Widget implements IScrollable {
 	}
 
 
-	/**
+	/*
 	 *  Adds an item to the end of the list
 	 * 
 	 * @param item item to add
-	 */
+	 **/
 	public void add(String item) {
 		add(_items.size(), item);
 	}
 
 
-	/**
+	/*
 	 *  @return number of items
-	 */
+	 **/
 	public int getItemsCount() {
 		return _items.size();
 	}
 
 
-	/**
+	/*
 	 * @param index specified position
 	 *  @return item at the specified position
-	 */
+	 **/
 	public String getItem(int index) {
 		return (String)_items.elementAt(index);
 	}
 
 
 
-	/**
+	/*
 	 *  Removes an item from the list at the specified position
 	 * 
 	 * @param pos position
-	 */
+	 **/
 	public void remove(int pos) {
 		_items.remove(pos);
 		_selected.remove(pos);
@@ -218,11 +218,11 @@ public class List extends Widget implements IScrollable {
 	}
 
 
-	/**
+	/*
 	 *  Removes the first occurence of <code>item</code> from the list.
 	 * 
 	 * @param item string, whose first occurence is to remove from the list.
-	 */
+	 **/
 	public void remove(String item) {
 		int index = _items.indexOf(item);
 		if (index != -1) {
@@ -264,11 +264,11 @@ public class List extends Widget implements IScrollable {
 		}
 	}
 
-	/**
+	/*
 	 *  Selects an item at the specified position
 	 * 
 	 * @param index position
-	 */
+	 **/
 	public void select(int index) {
 		select(index, true);
 		if (isVisible()) {
@@ -278,11 +278,11 @@ public class List extends Widget implements IScrollable {
 	}
 
 
-	/**
+	/*
 	 *  Deselects an item at the specified position
 	 * 
 	 * @param index position
-	 */
+	 **/
 	public void deselect(int index) {
 		select(index, false);
 		if (isVisible()) {
@@ -292,28 +292,28 @@ public class List extends Widget implements IScrollable {
 	}
 
 
-	/**
+	/*
 	 * @param pos the position to test, whether selected
 	 * @return true, if the item at the specified position is selected, false otherwise
 	 * 
 	 * 
-	 */
+	 **/
 	public boolean isSelected(int pos) {
 		return  ((Boolean)_selected.elementAt(pos)).booleanValue();
 	}
 
 
-	/**
+	/*
 	 *  @return items, contained in the list
-	 */
+	 **/
 	public Vector<String> getItems() {
 		return (Vector<String>)_items.clone();
 	}
 
 
-	/**
+	/*
 	 * @return all selected items, contained in the list
-	 */
+	 **/
 	public Vector<String> getSelectedItems() {
 		Vector<String> result = new Vector<String>();
 		for (int i=0; i<_items.size(); i++) {
@@ -327,9 +327,9 @@ public class List extends Widget implements IScrollable {
 	}
 
 
-	/**
+	/*
 	 * @return indexes of all selected items, contained in the list
-	 */
+	 **/
 	public int [] getSelectedIndexes() {
 		int size = 0;
 		for (int i=0; i<_items.size(); i++) {
@@ -353,9 +353,9 @@ public class List extends Widget implements IScrollable {
 	}
 
 
-	/**
+	/*
 	 *  @return the selected item, if only one item is selected, <code>null</code> otherwise.
-	 */
+	 **/
 	public String getSelectedItem() {
 		Vector<String> results = getSelectedItems();
 		String result = null;
@@ -365,9 +365,9 @@ public class List extends Widget implements IScrollable {
 		return result;
 	}
 
-	/**
+	/*
 	 *  @return index of the selected item, if only one item is selected, <code>null</code> otherwise.
-	 */
+	 **/
 	public int getSelectedIndex() {
 		int [] results = getSelectedIndexes();
 		int result = -1;
@@ -378,9 +378,9 @@ public class List extends Widget implements IScrollable {
 		return result;
 	}
 
-	/**
+	/*
 	 *  Removes all items from the list
-	 */
+	 **/
 	public void clear() {
 		_items.clear();
 		_selected.clear();
@@ -402,7 +402,7 @@ public class List extends Widget implements IScrollable {
 
 	/*private int getMaximumStartIndex() {
 		return (_items.size()<getVisibleSize())?0:(_items.size()-getVisibleSize());
-	}*/
+	}**/
 
 
 	private boolean isVisible(int index) {
@@ -531,23 +531,23 @@ public class List extends Widget implements IScrollable {
 	}
 
 
-	/**
+	/*
 	 * Gets the currently tracked item (i.e. where the 'cursor' line is
 	 * when the user is navigating the list).
 	 *
 	 * @return the index of the current tracked item.
-	 */
+	 **/
 	public int getTrackedItem() {
 		return _trackedIndex;
 	}
 
-	/**
+	/*
 	 * Sets the currently tracked item (i.e. where the 'cursor' line is
 	 * when the user is navigating the list).
 	 *
 	 * @param pos the index of the current tracked item.
 	 * @exception IllegalArgumentException if pos is out of range.
-	 */
+	 **/
 	public void setTrackedItem(int pos) {
 		if (pos < 0 || pos >= getItemsCount()) {
 			throw new IllegalArgumentException("pos must be in the range: 0," + (getItemsCount() - 1));
@@ -634,20 +634,20 @@ public class List extends Widget implements IScrollable {
 
 
 
-	/**
+	/*
 	 *  Sets, whether items can be selected at all
 	 * 
 	 * @param value true, if items can be selected, false otherwise ( in this case items can only be 'invoked')
-	 */
+	 **/
 	public void setSelectable(boolean value) {
 		_selectable = value;
 	}
 
-	/**
+	/*
 	 *  Sets, whether items can be selected at all
 	 * 
 	 * @return true, if items can be selected, false otherwise ( in this case items can only be 'invoked')
-	 */
+	 **/
 	public boolean getSelectable() {
 		return _selectable;
 	}
@@ -657,13 +657,13 @@ public class List extends Widget implements IScrollable {
 
 
 
-	/**
+	/*
 	 *  This method tests, if the item at the specified position can be selected and invoked at all.
 	 *  The sense is, to give derived classes the posssibility to implement 'separators'. Here returns 
 	 * always <code>true</code>.
 	 *  @param i the position to test
 	 *  @return true if the item at the specified position can be selected and invoked, false otherwise
-	 */
+	 **/
 	protected boolean isSelectable(int i) {
 		return true;
 	}
@@ -786,14 +786,14 @@ public class List extends Widget implements IScrollable {
 
 	}
 
-	/**
+	/*
 	 * The method returns the display representation of the string und is
 	 * called by the widget before it paints an item. The idea is to make 
 	 * it possible in derived classes to paint other strings as managed in the widget.
 	 * Here returns always the same string as <code>item</code>
 	 * @param item string to give display representation
 	 * @return display representation of the string
-	 */
+	 **/
 	protected String getItemRepresentation(String item) {
 		return item;
 	}
@@ -903,10 +903,10 @@ public class List extends Widget implements IScrollable {
 		return false;
 	}
 	
-	/**
+	/*
 	 * When user types in a digit, update current index
 	 * @param ch
-	 */
+	 **/
 	private void updateIndex(InputChar ch){
 		if (ch.getCode()<ONE.getCode() || ch.getCode()>NINE.getCode()){
 			return;
@@ -931,21 +931,21 @@ public class List extends Widget implements IScrollable {
 	}
 
 
-	/**
+	/*
 	 *  Adds a listener to the widget
 	 * 
 	 * @param listener listener to add
-	 */
+	 **/
 	public void addListener(ItemListener listener) {
 		_listenerManager.addListener(listener);
 	}
 
 
-	/**
+	/*
 	 *  Removes a listener from the widget
 	 * 
 	 * @param listener listener to remove
-	 */
+	 **/
 	public void removeListener(ItemListener listener) {
 		_listenerManager.removeListener(listener);
 	}

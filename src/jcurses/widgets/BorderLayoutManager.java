@@ -1,7 +1,9 @@
-package jcurses.widgets;
-import jcurses.util.Rectangle;
+package jcurses.widgets;
 
-/**
+import jcurses.util.Rectangle;
+
+
+/*
  * This class is a layout manager that works like Swing's
  * BorderLayout. Up to 5 widgets can be added to this layout at once,
  * in the following positions: NORTH, SOUTH, WEST, EAST, and
@@ -10,27 +12,37 @@ import jcurses.util.Rectangle;
  * remaining screen area.
  *
  * @author <a href="mailto:lenbok@myrealbox.com">Len Trigg</a>
- */
-public class BorderLayoutManager extends LayoutManager {
+ **/
 
-	/** Constant used to specify widget placement in the center of the container */
-	public static final int CENTER = 0;
-	/** Constant used to specify widget placement in the north of the container */
-	public static final int NORTH  = 1;
-	/** Constant used to specify widget placement in the south of the container */
-	public static final int SOUTH  = 2;
-	/** Constant used to specify widget placement in the west of the container */
-	public static final int WEST   = 3;
-	/** Constant used to specify widget placement in the east of the container */
-	public static final int EAST   = 4;
+public class BorderLayoutManager extends LayoutManager {
 
-	/** The widget we are providing layout service for */
-	//private WidgetContainer mFather = null;
-	/** Stores constraints for each of the 5 possible positions. Any entry may be null */
-	private BorderLayoutConstraint[] mSlots = new BorderLayoutConstraint[5];
-	/** Stores separator positions for each dimension */
+
+	/* Constant used to specify widget placement in the center of the container **/
+	public static final int CENTER = 0;
+
+	/* Constant used to specify widget placement in the north of the container **/
+	public static final int NORTH  = 1;
+
+	/* Constant used to specify widget placement in the south of the container **/
+	public static final int SOUTH  = 2;
+
+	/* Constant used to specify widget placement in the west of the container **/
+	public static final int WEST   = 3;
+
+	/* Constant used to specify widget placement in the east of the container **/
+	public static final int EAST   = 4;
+
+
+	/* The widget we are providing layout service for **/
+	//private WidgetContainer mFather = null;
+
+	/* Stores constraints for each of the 5 possible positions. Any entry may be null **/
+	private BorderLayoutConstraint[] mSlots = new BorderLayoutConstraint[5];
+
+	/* Stores separator positions for each dimension **/
 	private int[] mXSep = new int[2];
-	private int[] mYSep = new int[2];
+	private int[] mYSep = new int[2];
+
 	// inherited docs
 	public void layout(Widget widget, LayoutConstraint constraint) {
 		if (!(constraint instanceof BorderLayoutConstraint)) {
@@ -50,7 +62,8 @@ public class BorderLayoutManager extends LayoutManager {
 		int maxWidth = rect.getWidth();  // Cell width
 		int maxHeight = rect.getHeight();// Cell height
 		int x = 0;                       // Cell x offset
-		int y = 0;                       // Cell y offset
+		int y = 0;                       // Cell y offset
+
 		switch (cstr.getPosition()) {
 		case NORTH:
 			x = 0; y = 0;
@@ -77,40 +90,46 @@ public class BorderLayoutManager extends LayoutManager {
 			break;
 		default:
 			throw new IllegalStateException("Unknown position for widget: " + cstr.getPosition());
-		}
+		}
+
 		if (prefWidth <= 0) {
 			prefWidth = maxWidth;
 		}
 		if (prefHeight <= 0) {
 			prefHeight = maxHeight;
-		}
+		}
+
 		/*
     		Protocol.debug("Widget prelayout for cell " + cstr.mPosition + " is offset(" + x + "," + y + ")" + 
                        " maxsize(" + maxWidth + "," + maxHeight + ")");
-		 */
+		 **/
 		int width = 0;
-		int height = 0;
+		int height = 0;
+
 		if (prefWidth < maxWidth) {
 			widget.setX(getAlignedCoordinate(prefWidth, maxWidth, x, cstr.getHorizontalConstraint()));
 			width = prefWidth; 
 		} else {
 			widget.setX(x);
 			width = maxWidth;
-		}
+		}
+
 		if (prefHeight < maxHeight) {
 			widget.setY(getAlignedCoordinate(prefHeight, maxHeight, y, cstr.getVerticalConstraint()));
 			height = prefHeight; 
 		} else {
 			widget.setY(y);
 			height = maxHeight;
-		}
+		}
+
 		/*
     		Protocol.debug("Widget layout for cell " + cstr.mPosition + " is offset(" + widget.getX() + "," + widget.getY() + ")" + 
                        " maxsize(" + width + "," + height + ")");
-		 */
+		 **/
 		widget.setSize(new Rectangle(width, height));
-	}
-	/**
+	}
+
+	/*
 	 *  Determine separator positions, where top left is 0,0
 	 *
 	 *    mXSep[0]
@@ -126,19 +145,22 @@ public class BorderLayoutManager extends LayoutManager {
 	 *  +-----+-+
 	 *        |
 	 *        mXSep[1]
-	 */
+	 **/
 	private void updateAllSeparators() {
 		// Get Rectangle to lay out into -- this is the total area available.
 		Rectangle rect = (_father.getChildsRectangle() == null) ? _father.getSize() : _father.getChildsRectangle();
 		updateSeparatorsDimension(mXSep, mSlots[WEST], mSlots[CENTER], mSlots[EAST], rect.getWidth(), true);
 		updateSeparatorsDimension(mYSep, mSlots[NORTH], mSlots[CENTER], mSlots[SOUTH], rect.getHeight(), false);
-	}
-	/**
+	}
+
+	/*
 	 * Some super logic for how to partition the dimension based on the
 	 * number of components and their preferences 
-	 */
-	private void updateSeparatorsDimension(int []sep,			BorderLayoutConstraint w1, BorderLayoutConstraint w2, 
-			BorderLayoutConstraint w3, int max, boolean width) {
+	 **/
+	private void updateSeparatorsDimension(int []sep,
+			BorderLayoutConstraint w1, BorderLayoutConstraint w2, 
+			BorderLayoutConstraint w3, int max, boolean width) {
+
 		sep[0] = 0;
 		sep[1] = max;
 		if (w2 == null) {
@@ -148,12 +170,14 @@ public class BorderLayoutManager extends LayoutManager {
 				}
 				sep[1] = 0;
 				return;
-			}
+			}
+
 			if (w3 == null) {
 				sep[0] = max;
 				return;
 			}
-		}
+		}
+
 		if (w1 != null) {
 			int pref = (width) ? w1.getWidget().getPreferredSize().getWidth() : w1.getWidget().getPreferredSize().getHeight();
 			if (pref < 0) {
@@ -161,7 +185,8 @@ public class BorderLayoutManager extends LayoutManager {
 			} else {
 				sep[0] += pref;
 			}
-		}
+		}
+
 		if (w3 != null) {
 			int pref = (width) ? w3.getWidget().getPreferredSize().getWidth() : w3.getWidget().getPreferredSize().getHeight();
 			if (pref < 0) {
@@ -169,7 +194,8 @@ public class BorderLayoutManager extends LayoutManager {
 			} else {
 				sep[1] -= pref;
 			}
-		}
+		}
+
 		// If there are any -1 prefs, distribute them evenly
 		// TODO -- should this take into account w2 preferred dimension?
 		if (w2 == null) {
@@ -195,8 +221,10 @@ public class BorderLayoutManager extends LayoutManager {
 				sep[1] = max - (max - sep[0]) / 2;
 			}
 		}
-	}
-	private int getAlignedCoordinate(int prefG, int contG, int contC, int alignment) {
+	}
+
+	private int getAlignedCoordinate(int prefG, int contG, int contC, int alignment) {
+
 		if (alignment == WidgetsConstants.ALIGNMENT_CENTER) {
 			return contC + (contG - prefG) / 2;
 		} else if ((alignment == WidgetsConstants.ALIGNMENT_BOTTOM) || 
@@ -205,8 +233,9 @@ public class BorderLayoutManager extends LayoutManager {
 		} else {
 			return contC;
 		}
-	}
-	/**
+	}
+
+	/*
 	 * Adds a widget to the bounded container
 	 * 
 	 * @param widget widget to be added
@@ -223,16 +252,19 @@ public class BorderLayoutManager extends LayoutManager {
 	 * <code>WidgetConstraints.ALIGNMENT_CENTER</code>,
 	 * <code>WidgetConstraints.ALIGNMENT_LEFT</code>,
 	 * <code>WidgetConstraints.ALIGNMENT_RIGHT</code>
-	 */
-	public void addWidget(Widget widget, int position, int verticalConstraint, int horizontalConstraint) {
+	 **/
+	public void addWidget(Widget widget, int position, int verticalConstraint, int horizontalConstraint) {
+
 		if ((position != NORTH) && (position != SOUTH) && (position != WEST) && (position != EAST) && (position != CENTER)) {
 			throw new IllegalArgumentException("Must specify position of NORTH, SOUTH, WEST, EAST, or CENTER.");
 		}
 		mSlots[position] = new BorderLayoutConstraint(widget, position, horizontalConstraint, verticalConstraint);;
 		_father.addWidget(widget, mSlots[position]);
-	}
+	}
+
 	// inherited docs
-	public void removeWidget(Widget widget) {
+	public void removeWidget(Widget widget) {
+
 		_father.removeWidget(widget);
 		for (int i = 0; i < mSlots.length; i++) {
 			if (mSlots[i].getWidget() == widget) {
@@ -240,4 +272,5 @@ public class BorderLayoutManager extends LayoutManager {
 			}
 		}
 	}
-}
+}
+

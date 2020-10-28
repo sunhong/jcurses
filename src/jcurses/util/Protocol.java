@@ -1,7 +1,7 @@
-/******************************************************
+/*****************************************************
  * 
  * F�rs Logging
- */
+ **/
 
 
 package jcurses.util;
@@ -11,7 +11,7 @@ import java.io.PrintStream;
 import java.util.Calendar;
 import java.util.HashSet;
 
-/**
+/*
 *  This class implements the debugging for jcurses applications.
 *  Developing a jcurses application you can't use <code>System.out.println</code>
 *  calls, because the console is used for painting. Instead of this ypu have to use
@@ -23,20 +23,20 @@ import java.util.HashSet;
 *  To activate a channel the method activateChannnel must be used with cnannels'name as argument.
 *  Thereafter this name are to use as second argument in <code>log</code> calls, to write messages 
 *  to the channel.     
-*/
+**/
 public class Protocol {
 	
 	
 	
 	public static final String  SYSTEM_PROPERTY_NAME="jcurses.protocol.filename";
 	
-    /**
+    /*
     *  The name of the standard <code>DEBUG</code> channel
-    */
+    **/
 	public static final String DEBUG = "debug";
-    /**
+    /*
     *  The name of the standard <code>SYSTEM</code> channel
-    */
+    **/
 	public static final String SYSTEM = "system";
 	
 	
@@ -67,20 +67,20 @@ public class Protocol {
 	}
 	
 	
-    /** 
+    /* 
     *  The method activates a channel with given name
     * @param the name of the channel to activate
-    */
+    **/
 	public static void activateChannel(String channel) {
 		__activatedChannels.add(channel);
 	}
 	
 	
-    /**
+    /*
     *  The method writes a log message
     * @param message the messsage's text
     * @param name of the channel to write on.
-    */
+    **/
 	public static void log(String message, String channel) {
 		if (isLoggingActivated() && isChannelActivated(channel)) {
 			String outputMessage = getPrefix(channel)+ " " +message;
@@ -116,16 +116,16 @@ public class Protocol {
 	}
 	
 	
-    /**
+    /*
     *  Writes a message to <code>SYSTEM</code> channel
-    */
+    **/
 	public static void system(String message) {
 		log(message, SYSTEM);
 	}
 	
-    /**
+    /*
     *  Writes a message to <code>DEBUG</code> channel
-    */
+    **/
 	public static void debug(String message) {
 		log(message, DEBUG);
 	}

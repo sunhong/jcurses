@@ -6,9 +6,9 @@ import jcurses.util.Rectangle;
 
 import java.util.StringTokenizer;
 
-/**
+/*
 *  This class implements a label widget
-*/
+**/
 public class Label extends Widget {
 	
     private String _label = null; 
@@ -19,12 +19,12 @@ public class Label extends Widget {
 		return __labelDefaultColors;
 	}
 	
-    /**
+    /*
     *  The constructor
     * 
     * @param label label's text
     * param colors label's colors
-    */
+    **/
 	public Label(String label, CharColor colors) {
 		if (label!=null) {
 			_label = label;
@@ -34,28 +34,28 @@ public class Label extends Widget {
 		setColors(colors);
 	}
 	
-    /**
+    /*
     *  The constructor
     * 
     * @param label label's text
-    */
+    **/
 	public Label(String label) {
 		this(label, null);
 	}
 	
-	/**
+	/*
 	 * Clear text
-	 */
+	 **/
 	protected void clear() {
 		Rectangle rect = this.getSize();
 		rect.setLocation(getAbsoluteX(), getAbsoluteY());
 		Toolkit.drawRectangle(rect, __labelDefaultColors);
 	}
 	
-	/**
+	/*
 	 * Set label
 	 * @param label
-	 */
+	 **/
 	public void setLabel(String label) {
 		this.clear();
 		this._label = label;
@@ -65,11 +65,11 @@ public class Label extends Widget {
 		Toolkit.printString(_label, rect, getColors());
 	}
 	
-	/**
+	/*
 	 * Get label
 	 * @param label
 	 * @return
-	 */
+	 **/
 	public String getLabel() {
 		return this._label;
 	}

@@ -12,12 +12,12 @@ import jcurses.util.Rectangle;
 
 import java.util.Vector;
 
-/**
+/*
 *  This class implements a buttton-widget. 
 *  Such button has a label and is 'clicked' by user typing a special 
 *  character (default 'enter'). If  it is 'clicked', it generates an
 *  <code>ActionEvent</code>, that is delegetated to registered listeners.  
-*/
+**/
 public class Button extends Widget {
 	
  
@@ -34,20 +34,20 @@ public class Button extends Widget {
 	
 	private String _label = null;
 	
-    /**
+    /*
     *  Sets button's label
     * 
     * @param label buttton's label
-    */
+    **/
 	public void setLabel(String label) {
 		_label = label;
 		
 	}
 	
 	
-    /**
+    /*
     *  @return button's label
-    */
+    **/
 	public String getLabel() {
 		return _label;
 	}
@@ -62,18 +62,18 @@ public class Button extends Widget {
 		return __focusedButtonDefaultColors;
 	}
 	
-	/**
+	/*
     *  @return button's colors, if it is focused
-    */
+    **/
 	public CharColor getFocusedButtonColors() {
 		return _focusedButtonColors;
 	}
 	
-	/**
+	/*
 	*  Sets button's colors in focused state
     * 
     * @param colors  button's colors, if it is focused
-	*/
+	**/
 	public void setFocusedButtonColors(CharColor colors) {
 		_focusedButtonColors = colors;
 	}
@@ -88,30 +88,30 @@ public class Button extends Widget {
 	}
 	
 	
-    /**
+    /*
     * @return colors button's shortcut char's colors
-    */
+    **/
 	public CharColor getShortCutColors() {
 		return _shortCutColors;
 	}
 	
 	
-    /**
+    /*
     *  Sets button's shortcut char's colors. If the button has a shortcut char
     * and this char is contained by the label, than the char within the label will
     * be painted in different colors, set by this method
     * 
     * @param colors button's shortcut char's colors
-    */
+    **/
 	public void setShortCutColors(CharColor colors) {
 		_shortCutColors = colors;
 	}
 	
-	/**
+	/*
 	*  The constructor
     * 
     * @param button's label
-	*/
+	**/
 	public Button(String label) {
 	  _label = label;
 	}
@@ -199,21 +199,21 @@ public class Button extends Widget {
 	}
 	
 	
-    /**
+    /*
     *  Adds a listener to the button.
     * 
     * @param listener listener to add
-    */
+    **/
 	public void addListener(ActionListener listener) {
 		_listenerManager.addListener(listener);
 	}
 	
 	
-    /**
+    /*
     *   Removes a listener from the button.
     * 
     * @param listener listener to remove
-    */
+    **/
 	public void removeListener(ActionListener listener) {
 		_listenerManager.removeListener(listener);
 	}
@@ -228,11 +228,11 @@ public class Button extends Widget {
 	
 	private InputChar _shortCut = null;
 	
-    /**
+    /*
     *  Set's button's shortcut char. If this shortcut is typed, than 
     * the button will handle the char, as described by <code>Widget</code>, and generate
     * an Event as whether the button would be 'clicked'.
-    */
+    **/
 	public void setShortCut(char c) {
 		_shortCut = new InputChar(c);
 	}

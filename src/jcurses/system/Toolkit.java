@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Hashtable;
 import java.awt.Point;
 
-/**
+/*
  *  This class is the 'work factory' of the jcurses library. It contains
  *  methods for primitive input and output operations and is only interface 
  *  to platform dependend libraries. An developer must not usually call methods of this 
  * class, these are used implementing widgets and in jcurses core. 
- */
+ **/
 public class Toolkit {
 
 	public static final short CORNER_UNDER_LINE = 0;
@@ -43,14 +43,14 @@ public class Toolkit {
 
 	private static Hashtable __clips = new Hashtable();
 
-	/**
+	/*
 	 *  The method sets the clippping rectangle for the current thread.
 	 * All the output operations, that are performed by this thread after a call of this
 	 * method, will paint only within the clip rectangle. If other clips were set before this,
 	 * then the used clip rectangle is the intersection of all clip rectangles set by current thread.
 	 *
 	 * @param clipRect clip rectangle to be set
-	 */
+	 **/
 	public static void setClipRectangle(Rectangle clipRect) {
 		ArrayList clips = (ArrayList)__clips.get(Thread.currentThread());
 		if (clips == null) {
@@ -60,9 +60,9 @@ public class Toolkit {
 		clips.add(clipRect);
 	}
 
-	/**
+	/*
 	 * Removes the evtl. before set clip rectangle
-	 */
+	 **/
 	public static void unsetClipRectangle() {
 		ArrayList clips = (ArrayList)__clips.get(Thread.currentThread());
 		if (clips == null) {
@@ -171,61 +171,61 @@ public class Toolkit {
 	}
 
 
-	/**
+	/*
 	 *  The method starts a new painting action, containing possible many painting operations
 	 *  After a call of this method endPainting must be already called, to refersh the screen.
-	 */
+	 **/
 	public static native void startPainting();
 
-	/**
+	/*
 	 *  The method ends a new painting action, containing possible many painting operations
 	 *  The call of this method must already follow a call of <code>startPainting</code>
-	 */
+	 **/
 
 	public static native void endPainting();
 
 
-	/**
+	/*
 	 *  The method returns the screen width
 	 * 
 	 * @return the screen height
-	 */
+	 **/
 	public static native int getScreenWidth();
-	/**
+	/*
 	 *  The method returns the screen height
 	 * 
 	 * @return the screen height
-	 */
+	 **/
 	public static native int getScreenHeight();
 
-	/**
+	/*
 	 *  @return <code>true</code> if the terminal can color painting, <code>false</code>otherwise.
-	 */
+	 **/
 	public static boolean hasColors() {
 		return (hasColorsAsInteger()!=0);
 	}
 
 	private static native int hasColorsAsInteger();
 
-	/**
+	/*
 	 * The method initializes the jcurses library, must be called only one time before 
 	 * all painting and input operations.
-	 */
+	 **/
 	public static native void init();
 
-	/**
+	/*
 	 * The method shuts down the jcurses library and recovers the terminal to the state before 
 	 * jcurses application start.
-	 */
+	 **/
 	public static native void shutdown();
 
 	//Painting methods 
 
-	/**
+	/*
 	 * The method clears the screen and fills it with the backround color of <code>color<code>
 	 * 
 	 * @param color the color to fill the screen, only backround part is used.
-	 */
+	 **/
 	public static void clearScreen(CharColor color) {
 		clearScreen(getColorPairNumber(color),
 				__attributes[color.getColorAttribute()]);
@@ -234,12 +234,12 @@ public class Toolkit {
 
 	private static native void clearScreen(short colorPairNumber, long attributes);
 
-	/**
+	/*
 	 * The method draws a rectangle on the screen, filled with background part of <code>color</code>
 	 * 
 	 * @param rect rectangle ( that is, bounds of rectangle) to be painted
 	 * @param color color to fill the rectangle, only background part is used
-	 */
+	 **/
 	public static void drawRectangle(Rectangle rect, CharColor color) {
 		Rectangle clipRect = getCurrentClipRectangle();
 		if (clipRect!=null) {
@@ -252,7 +252,7 @@ public class Toolkit {
 		}
 	}
 
-	/**
+	/*
 	 * The method draws a rectangle on the screen, filled with background part of <code>color</code>
 	 * 
 	 * @param x the x coordinate of the top left corner of the rectangle to be painted
@@ -260,7 +260,7 @@ public class Toolkit {
 	 * @param width the width of the rectangle to be painted
 	 * @param heigtht the height of the rectangle to be painted
 	 * @param color color to fill the rectangle, only background part is used
-	 */
+	 **/
 	public static void drawRectangle(int x, int y, int width, int height, CharColor color) {
 		Rectangle rect = new Rectangle(x,y,width,height);
 		drawRectangle(rect, color);
@@ -298,12 +298,12 @@ public class Toolkit {
 		return result;
 	}
 
-	/**
+	/*
 	 *  The method draws a horizontal thick line 
 	 * @param startX the x coordinate of the start point
 	 * @param startY the y coordinate of the start point
 	 * @param endX the x coordinate of the end point
-	 */
+	 **/
 	public static void drawHorizontalThickLine(int startX, int startY, int endX, CharColor color) {
 		LinePart part = getLinePart(startX,endX,HORIZONTAL,startY,getCurrentClipRectangle());
 		if (!part.isEmpty()) {
@@ -316,12 +316,12 @@ public class Toolkit {
 	private static native void drawHorizontalThickLine(int startX, int startY, int endX, short colorPairNumber, long attr);
 
 
-	/**
+	/*
 	 *  The method draws a vertical thick line 
 	 * @param startX the x coordinate of the start point
 	 * @param startY the y coordinate of the start point
 	 * @param endY the y coordinate of the end point
-	 */
+	 **/
 	public static void drawVerticalThickLine(int startX, int startY, int endY, CharColor color) {
 		LinePart part = getLinePart(startY,endY,VERTICAL,startX,getCurrentClipRectangle());
 		if (!part.isEmpty()) {
@@ -333,12 +333,12 @@ public class Toolkit {
 
 	private static native void drawVerticalThickLine(int startX, int startY, int endY, short colorPairNumber, long attr);
 
-	/**
+	/*
 	 *  The method draws a horizontal  line 
 	 * @param startX the x coordinate of the start point
 	 * @param startY the y coordinate of the start point
 	 * @param endX the x coordinate of the end point
-	 */
+	 **/
 	public static void drawHorizontalLine(int startX, int startY, int endX, CharColor color) {
 		LinePart part = getLinePart(startX,endX,HORIZONTAL,startY,getCurrentClipRectangle());
 		if (!part.isEmpty()) {
@@ -351,12 +351,12 @@ public class Toolkit {
 	private static native void drawHorizontalLine(int startX, int startY, int endY, short colorPairNumber, long attr);
 
 
-	/**
+	/*
 	 *  The method draws a vertical line 
 	 * @param startX the x coordinate of the start point
 	 * @param startY the y coordinate of the start point
 	 * @param endY the y coordinate of the end point
-	 */
+	 **/
 	public static void drawVerticalLine(int startX, int startY, int endY, CharColor color) {
 		LinePart part = getLinePart(startY,endY,VERTICAL,startX,getCurrentClipRectangle());
 		if (!part.isEmpty()) {
@@ -403,7 +403,7 @@ public class Toolkit {
 		return result;
 	}
 
-	/**
+	/*
 	 * 
 	 * The method draws a corner. The corner cann't have only one long side and the othe side empty.
 	 * In such case drawLine must be user followed by painting a sidelos corner. 
@@ -416,7 +416,7 @@ public class Toolkit {
 	 * the corner point (alignment == 0 ) or <bold>OVER</bold> (alignment == 1), or the corner char, if the corner has no sides, it.
 	 * @color the color attributes for of the corner
 	 * 
-	 */
+	 **/
 	public static void drawCorner(int startX, int startY, int endX, int endY, CharColor color, short alignment) {
 		Rectangle clipRect = getCurrentClipRectangle();
 		if ((clipRect == null)) {
@@ -462,17 +462,17 @@ public class Toolkit {
 
 	private static native void drawCorner(int startX, int startY, int endX, int endY, short colorPairNumber, long attr, short alignment);
 
-	/**
+	/*
 	 *  The method draws a border ( empty rectangle )
 	 * 
 	 * @param rect  bounds of the border to be painted
 	 * @param color color attributes of the border
-	 */
+	 **/
 	public static void drawBorder(Rectangle rect, CharColor color) {
 		drawBorder((int)rect.getX(), (int)rect.getY(), (int)rect.getWidth(), (int)rect.getHeight(), color);
 	}
 
-	/**
+	/*
 	 * The method draws a border on the screen.
 	 * 
 	 * @param x the x coordinate of the top left corner of the border to be painted
@@ -480,7 +480,7 @@ public class Toolkit {
 	 * @param width the width of the border to be painted
 	 * @param heigtht the height of the border to be painted
 	 * @param color color attributes of the border 
-	 */
+	 **/
 	public static void drawBorder(int x, int y, int width, int height, CharColor color) {
 		drawCorner(x+1,y,x+width-1, y+height-2,color, CORNER_UNDER_LINE);
 		drawCorner(x,y+1,x+width-2, y+height-1,color, CORNER_OVER_LINE);
@@ -491,17 +491,17 @@ public class Toolkit {
 
 	private static String __encoding;
 
-	/**
+	/*
 	 *  The method sets java encoding for string input and output operations
 	 *  
-	 */
+	 **/
 	public static void setEncoding(String encoding) {
 		__encoding = encoding;
 	}
 
-	/**
+	/*
 	 *  @return the java encoding used by sring input and output operations
-	 */
+	 **/
 	public static String getEncoding() {
 		return __encoding;
 	}
@@ -518,14 +518,14 @@ public class Toolkit {
 	}
 
 
-	/**
+	/*
 	 *  The method prints a string on the screen
 	 * 
 	 * @param text string to be printed
 	 * @param rectangle the rectangle, within which the string must lie. If the string 
 	 * doesn't fit within the rectangle it will be broken.
 	 * @param colr attributes of the string
-	 */
+	 **/
 	public static void printString(String text, Rectangle rect, CharColor color) {
 		Rectangle clipRect = getCurrentClipRectangle();
 		if (clipRect!=null) {
@@ -612,19 +612,19 @@ public class Toolkit {
 		}
 	}
 
-	/**
+	/*
 	 *  The method prints a string on the screen
 	 * 
 	 * @param text string to be printed
 	 * @param x the x coordinate of the string start point
 	 * @param y the y coordinate of the string start point
 	 * @param color color attributes of the string
-	 */
+	 **/
 	public static void printString(String text, int x, int y, CharColor color) {
 		printString(text,x,y,text.length(),1,color);
 	}
 
-	/**
+	/*
 	 *  The method prints a string on the screen. If the string doesn't fit within the rectangle bounds,
 	 * it wiil be broken.
 	 * 
@@ -634,7 +634,7 @@ public class Toolkit {
 	 * @param width the width of bounds rectangle
 	 * @param height the width of bounds rectangle
 	 * @param color color attributes of the string
-	 */
+	 **/
 	public static void printString(String text, int x, int y, int width, int height, CharColor color) {
 		Rectangle rect = new Rectangle(x,y,width,height);
 		printString(text,rect,color);
@@ -646,12 +646,12 @@ public class Toolkit {
 
 	private static byte [] __bytes = new byte [1];
 
-	/**
+	/*
 	 *  The method reads the next code (ascii or control ) fro input stream an wraps it into an instance 
 	 * of {@link jcurses.system.InputChar}
 	 * 
 	 * @return the next read code
-	 */
+	 **/
 	public static  synchronized InputChar readCharacter() {
 		int code = readByte();
 		return new InputChar(code);
@@ -663,12 +663,12 @@ public class Toolkit {
 	static native int getSpecialKeyCode(int code);
 
 
-	/**
+	/*
 	 * The method change the background and the foreground colors of an given rectangle on the schreen
 	 * 
 	 * @param rectangle rectangle, whose colors are to be changed
 	 * @param colors new colors
-	 */
+	 **/
 	public static void changeColors(Rectangle rect, CharColor color) {
 		Rectangle clipRect = getCurrentClipRectangle();
 		if (clipRect!=null) {
@@ -683,11 +683,11 @@ public class Toolkit {
 	private native static void changeColors(int x, int y, int width, int height, short colorPairNumber, long attr);
 
 
-	/**
+	/*
 	 * The method to make an audio alert. Works
 	 * only with terminals, that support 'beeps',
 	 * under windows currenty does nothing.
-	 */
+	 **/
 	public native static void beep();	
 }
 

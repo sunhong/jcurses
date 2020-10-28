@@ -4,9 +4,9 @@ import jcurses.system.CharColor;
 import jcurses.system.Toolkit;
 import jcurses.util.Rectangle;
 
-/**
+/*
 *  This class implements a panel with a border.
-*/
+**/
 
 
 public class BorderPanel extends Panel {

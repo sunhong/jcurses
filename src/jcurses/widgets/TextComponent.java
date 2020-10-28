@@ -12,9 +12,9 @@ import jcurses.system.InputChar;
 import jcurses.util.Rectangle;
 import jcurses.util.Paging;
 
-/**
+/*
  *  The class is the superclass for text editing widgets
- */
+ **/
 public class TextComponent extends Widget {
 
 	private int _width = 0;
@@ -34,7 +34,7 @@ public class TextComponent extends Widget {
 	ArrayList<Integer> _lines = new ArrayList<Integer>();
 	ArrayList<Integer> _lineLengths = new ArrayList<Integer>();
 
-	/**
+	/*
 	 *  The constructor
 	 * 
 	 * @param width the preferred width of the component. If -1 is stated,
@@ -45,7 +45,7 @@ public class TextComponent extends Widget {
 	 * container.
 	 * @text the initial text, if <code>null<code> the component is empty
 	 * 
-	 */
+	 **/
 
 	public TextComponent(int width, int height, String text) {
 		_width = width;
@@ -54,7 +54,7 @@ public class TextComponent extends Widget {
 	}
 
 
-	/**
+	/*
 	 *  The constructor
 	 * 
 	 * @param width the preferred width of the component. If -1 is stated,
@@ -64,58 +64,58 @@ public class TextComponent extends Widget {
 	 * there is no preferred width and the component is layouted dependend on the
 	 * container and the text.
 	 * 
-	 */
+	 **/
 	public  TextComponent(int width, int height) {
 		this(width, height,"");
 	}
 
-	/**
+	/*
 	 *  Constructor with no arguments. No preferred width and height, empty.
-	 */
+	 **/
 
 	public  TextComponent() {
 		this(-1, -1,"");
 	}
 
 
-	/**
+	/*
 	 *  Konstruktor, nur Text, h�he und Breite vom Container bestimmt
-	 */
+	 **/
 
 	public  TextComponent(String text) {
 		this(-1, -1, text);
 	}
 
-	/**
+	/*
 	 *  @return preferred width
-	 */
+	 **/
 	protected int getWidth() {
 		return _width;
 	}
 
 
-	/**
+	/*
 	 *  @return preferred height
-	 */
+	 **/
 	protected int getHeight() {
 		return _height;
 	}
 
-	/**
+	/*
 	 *  Sets the conteined text
 	 * 
 	 * @param text text to set
-	 */
+	 **/
 
 	public void setText(String text) {
 		setText(text, true);
 	}
 
-	/**
+	/*
 	 *  Sets the contained text
 	 * @param text text to set
 	 * @param dispatchEvent if true, the widget is repainted 
-	 */
+	 **/
 	public void setText(String text, boolean dispatchEvent) {
 		text = (text == null)?"":text;
 		_text = new StringBuffer(text);
@@ -131,9 +131,9 @@ public class TextComponent extends Widget {
 	}
 
 
-	/**
+	/*
 	 * @return contained text
-	 */
+	 **/
 	public String getText() {
 		return _text.toString();
 	}
@@ -143,10 +143,10 @@ public class TextComponent extends Widget {
 		updateText(true);
 	}
 
-	/**
+	/*
 	 * Fabgeleitete Klassen Textbreite und Hund Koordinaten der oberen Rechten Ecke
 	 * des Sichtbaren Bereiches
-	 */
+	 **/
 	protected int getTextX() {
 		return _firstChar;
 	}
@@ -210,27 +210,27 @@ public class TextComponent extends Widget {
 		}
 	}
 
-	/**
+	/*
 	 *  This method draws text-dependent additional things such as scrollbars.
 	 * As default it makes nothing, can be overriden in inherited classes ( for example text area)
-	 */
+	 **/
 	protected void drawAdditionalThings() {
 		//nothing
 	}
 
-	/**
+	/*
 	 *  This method refreshes text-dependent additional after a text change such as scrollbars.
 	 * As default it makes nothing, can be overriden in inherited classes ( for example text area)
-	 */
+	 **/
 	protected void refreshAdditionalThings() {
 		//nothing
 	}
 
-	/**
+	/*
 	 * The method returns the rectangle, within that the text is painted.
 	 * Is overrided by derived classes for example to implement a border.
 	 * 
-	 */
+	 **/
 	protected Rectangle getTextRectangle() {
 		Rectangle rect =  getSize();
 		if (rect!=null){
@@ -331,9 +331,9 @@ public class TextComponent extends Widget {
 	}
 
 
-	/**
+	/*
 	 *  Aus Widget
-	 */
+	 **/
 	protected Rectangle getPreferredSize() {
 		return new Rectangle(_width, _height);
 	}
@@ -540,14 +540,14 @@ public class TextComponent extends Widget {
 	}
 
 
-	/**
+	/*
 	 *  This method replaces a line of text to printing througth another text line.
 	 *  This can be overrided in derived classes for example for painting all chars as capitals,
 	 * or for password input. Here the same line is returned.
 	 * 
 	 * @param line a text line to replace, contains no line breaks
 	 * @return decoded line
-	 */
+	 **/
 	protected String replaceTextLineForPrinting(String line) {
 		return line;
 	}
@@ -641,9 +641,9 @@ public class TextComponent extends Widget {
 		return false;
 	}
 
-	/**
+	/*
 	 *  Aus Widget
-	 */
+	 **/
 	protected void focus() {
 		changeColors(this.getFocusedTextComponentColors());
 		drawCursor();
@@ -666,12 +666,12 @@ public class TextComponent extends Widget {
 		}
 	}
 
-	/**
+	/*
 	 *  The method sets the cursor position to given coordinates ( within the text, not widget )
 	 *  
 	 *  @param x new x cursor coordinate within the text
 	 *  @param y new y cursor coordinate within the text
-	 */
+	 **/
 	public void setCursorLocation(int x, int y) {
 		setCursorLocation(x, y, false);
 	}
@@ -737,9 +737,9 @@ public class TextComponent extends Widget {
 		updateText();
 	}
 
-	/**
+	/*
 	 * Public method for repaint
-	 */
+	 **/
 	public void refresh(){
 		this.doRepaint();
 	}
@@ -761,7 +761,7 @@ public class TextComponent extends Widget {
 		}
 
 		return buf.toString();
-	}*/
+	}**/
 
 
 	//Listener 

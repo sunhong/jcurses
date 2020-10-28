@@ -2,11 +2,11 @@ package jcurses.widgets;
 
 import jcurses.util.Rectangle;
 
-/**
+/*
  * This class is a layout manager that works like as the <code>DefaultLayoutManager</code>
  * with an difference: the painting rectangle is shared in many grid cells and the constraints
  * are stated not in real coodinates on the painting rectangle, but in 'grid-coordinates'
- */
+ **/
 public class GridLayoutManager extends LayoutManager implements WidgetsConstants {
 
 	private DefaultLayoutManager _defLayout = new DefaultLayoutManager();
@@ -18,12 +18,12 @@ public class GridLayoutManager extends LayoutManager implements WidgetsConstants
 
 	private Grid _grid = null;
 
-	/**
+	/*
 	 * The constructor 
 	 * @param width the width of the grid ( in cells )
 	 * @param height the height of the grid ( in cells )
 	 * 
-	 */
+	 **/
 	public GridLayoutManager(int width, int height) {
 		_width = width;
 		_height = height;
@@ -40,7 +40,7 @@ public class GridLayoutManager extends LayoutManager implements WidgetsConstants
 		_defLayout.layout(widget, layoutConstraint.getDefaultLayoutConstraint(_grid));
 	}
 
-	/**
+	/*
 	 *  Adds a widget to the boundeb container
 	 * 
 	 * @param widget widget to be added
@@ -52,7 +52,7 @@ public class GridLayoutManager extends LayoutManager implements WidgetsConstants
 	 * <code>WidgetConstraints.ALIGNMENT_CENTER</code>,<code>WidgetConstraints.ALIGNMENT_TOP</code>,<code>WidgetConstraints.ALIGNMENT_BOTTOM</code>
 	 * @param horizontalConstraint vertical alignment constraint, Following values are possible:
 	 * <code>WidgetConstraints.ALIGNMENT_CENTER</code>,<code>WidgetConstraints.ALIGNMENT_LEFT</code>,<code>WidgetConstraints.ALIGNMENT_RIGHT</code>
-	 */
+	 **/
 	public void addWidget(Widget widget, int x, int y, int width, int height, int verticalConstraint, int horizontalConstraint) 
 	throws IllegalArgumentException{
 		if (x<0) throw new IllegalArgumentException("x is negative");
@@ -63,10 +63,10 @@ public class GridLayoutManager extends LayoutManager implements WidgetsConstants
 		_father.addWidget(widget, new GridLayoutConstraint(x, y, width, height, horizontalConstraint, verticalConstraint));
 	}
 
-	/**
+	/*
 	 * Removes a widget 
 	 * @param widget widget to remove
-	 */
+	 **/
 	public void removeWidget(Widget widget) {
 		_father.removeWidget(widget);
 	}

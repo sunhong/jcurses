@@ -5,28 +5,28 @@ import jcurses.system.CharColor;
 import jcurses.system.Toolkit;
 import jcurses.util.Rectangle;
 
-/**
+/*
  * This class implements a input text field to edie a one line text.
  * 
- */
+ **/
 public class TextField extends TextComponent {
 
-	/**
+	/*
 	 *  The constructor
 	 * 
 	 * @param width the preferred width, if -1, there is no preferred size.
 	 * @param text initial text, if null, the field is empty
-	 */
+	 **/
 
 	public TextField(int width, String text) {
 		super(width, 1, text);
 	}
 
-	/**
+	/*
 	 *  The constructor
 	 * 
 	 * @param width the preferred width, if -1, there is no preferred size.
-	 */
+	 **/
 	public TextField(int width) {
 		super(width, 1);
 	}
@@ -115,9 +115,9 @@ public class TextField extends TextComponent {
 		return new Rectangle(getWidth(), getHeight());
 	}
 
-	/**
+	/*
 	 *  Input-Behandlundg
-	 */
+	 **/
 	protected boolean handleInput(InputChar ch) {
 
 		boolean filter = 

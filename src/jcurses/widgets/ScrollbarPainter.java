@@ -4,11 +4,11 @@ import jcurses.util.Rectangle;
 import jcurses.system.Toolkit;
 
 
-/**
+/*
 * This class is used by widgets, having scrollable content, to paint scrollbars.
 * The class <code>jcurses.util.ScrollbarUtils is deprecated. 
 * 
-*/
+**/
 public class ScrollbarPainter {
 	
 	private IScrollable _widget = null;
@@ -17,24 +17,24 @@ public class ScrollbarPainter {
 	
 	private ScrollbarData _currentScrollbarData = null;
 	
-	/**
+	/*
 	* The constructor
 	* 
 	* @param widget the widget, that needs scrollbars
 	* 
-	*/
+	**/
 	public ScrollbarPainter(IScrollable widget) {
 		_widget = widget;
 	}
 	
 	
 	
-	/**
+	/*
 	* This method must be called, if the widget is painted or repainted.
 	* If the the widget was already visible, but the content (position ) has been changed,
 	* the method <code>refresh</code> must be used
 	* 
-	*/
+	**/
 	public void paint() {
 		_currentScrollbarData = readData();
 		drawHorizontalScrollbar();
@@ -42,11 +42,11 @@ public class ScrollbarPainter {
 	}
 	
 	
-	/**
+	/*
 	* This method is to be called if the scrollable content ( or it's position ) has been ( or could have been ) 
 	* changed, to refresh scrollbars only if needed.
 	* 
-	*/
+	**/
 	public void refresh() {
 		ScrollbarData oldScrollbarData = _currentScrollbarData;
 		_currentScrollbarData = readData();

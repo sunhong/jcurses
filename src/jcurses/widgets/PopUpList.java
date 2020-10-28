@@ -12,12 +12,12 @@ import jcurses.util.Rectangle;
 
 import java.util.Vector;
 
-/**
+/*
 * This class implements a popup list. 
 * Such list has always one of the items selected and gives the possibility to change
 * this selection ( througth an popup menu that is shown, if the user typed 'enter')
 * 
-*/
+**/
 public class PopUpList extends Widget {
 	
  
@@ -44,19 +44,19 @@ public class PopUpList extends Widget {
 	}
 	
 	
-    /**
+    /*
 	*  @raturn colors used to paint the widget, if it has focus
     * 
-	*/
+	**/
 	public CharColor getFocusedPopUpColors() {
 		return _focusedPopUpColors;
 	}
 	
-	/**
+	/*
 	*  Sets colors used to paint the widget, if it has focus
     * 
     * @param colors colors used to paint the widget, if it has focus
-	*/
+	**/
 	public void setFocusedPopUpColors(CharColor colors) {
 		_focusedPopUpColors = colors;
 	}
@@ -65,61 +65,61 @@ public class PopUpList extends Widget {
 	public PopUpList() {
 	}
 	
-	/**
+	/*
 	*  Adds an item
     * 
     * @param item the item to add
-	*/
+	**/
 	public void add(String item) {
 		_items.add(item);
 	}
 	
 	
-    /**
+    /*
 	*  Adds an item at the specified position
     * 
     * @param item the item to add
     * @param pos position 
-	*/
+	**/
 	public void add(int pos, String item) {
 		_items.add(pos, item);
 	}
 	
 	
-    /**
+    /*
     * Removes the first ocuurence of the specified item
     * 
     * @param item item to be removed
     * 
-    */
+    **/
 	public void remove(String item) {
 		_items.remove(item);
 	}
 	
 	
-    /**
+    /*
     *  Removes the item at the specified position
     * 
     * @param pos position
-    */
+    **/
 	public void remove(int pos) {
 		_items.remove(pos);
 	}
 	
 	
-    /**
+    /*
     *  Clears the item list
-    */
+    **/
 	public void clear() {
 		_items.clear();
 	}
 	
 	
-    /**
+    /*
     *  Returns the currently selected index
     * 
     * @return currently selected index
-    */
+    **/
 	public int getSelectedIndex() {
 		if (_selectedIndex!=-1) {
 			return _selectedIndex;
@@ -132,11 +132,11 @@ public class PopUpList extends Widget {
 		}
 	}
 	
-    /**
+    /*
     *  Returns the currently selected item
     * 
     * @return currently selected item
-    */
+    **/
 	public String getSelectedItem() {
 		if (getSelectedIndex()>=0) {
 			return (String)_items.elementAt(getSelectedIndex());
@@ -239,19 +239,19 @@ public class PopUpList extends Widget {
 	}
 	
 	
-    /**
+    /*
     * Adds a listener to register selected value changes
     * 
-    */
+    **/
 	public void addListener(ValueChangedListener listener) {
 		_listenerManager.addListener(listener);
 	}
 	
 	
-    /**
+    /*
     * Removes a listener
     * 
-    */
+    **/
 	public void removeListener(ValueChangedListener listener) {
 		_listenerManager.removeListener(listener);
 	}

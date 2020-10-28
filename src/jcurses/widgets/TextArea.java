@@ -4,14 +4,14 @@ import jcurses.system.CharColor;
 import jcurses.system.Toolkit;
 import jcurses.util.Rectangle;
 
-/**
+/*
 *  This class implements a text area to edit a text with meny lines
-*/
+**/
 public class TextArea extends TextComponent implements IScrollable {
 	
 	private ScrollbarPainter _scrollbars = null; 
 	
-	/**
+	/*
 	*  The constructor
     * 
     * @param width the preferred width of the component. If -1 is stated,
@@ -22,13 +22,13 @@ public class TextArea extends TextComponent implements IScrollable {
     * container.
     * @text the initial text, if <code>null<code> the component is empty
     * 
-	*/
+	**/
 	public TextArea(int width, int height,String text) {
 		super(width,height,text);
 		_scrollbars = new ScrollbarPainter(this);
 	}
 	
-	/**
+	/*
 	*  The constructor
     * 
     * @param width the preferred width of the component. If -1 is stated,
@@ -38,14 +38,14 @@ public class TextArea extends TextComponent implements IScrollable {
     * there is no preferred width and the component is layouted dependend on the
     * container.
     * 
-	*/
+	**/
 	public  TextArea(int width, int height) {
 		this(width,height,null);
 	}
 	
-	/**
+	/*
 	* Constructor without arguments
-	*/
+	**/
 	
 	public TextArea() {
 		this(-1, -1);
@@ -165,7 +165,7 @@ public class TextArea extends TextComponent implements IScrollable {
 		
 		
 		
-	}*/
+	}**/
 	
 	private int getVisibleTextWidth() {
 		return getSize().getWidth()-2;

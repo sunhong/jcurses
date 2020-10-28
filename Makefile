@@ -2,12 +2,12 @@
 # Tested on Centos 6.5
 
 CURSES=-lncurses
-JAVAHOME=/usr/java/jdk1.7.0_51
-JAVAC=$(JAVAHOME)/bin/javac
+JAVAHOME=/usr/lib/jvm/java-8-openjdk
+JAVAC=$(JAVAHOME)/bin/javac -encoding UTF8
 JAR=$(JAVAHOME)/bin/jar
 JAVAH=$(JAVAHOME)/bin/javah
 JAVA=$(JAVAHOME)/bin/java
-JAVADOC=$(JAVAHOME)/bin/javadoc
+JAVADOC=$(JAVAHOME)/bin/javadoc -encoding UTF8
 GCC=gcc
 GCCFLAGS=-fPIC -Wall -shared -I$(JAVAHOME)/include -I$(JAVAHOME)/include/linux 
 CLASSPATH=./classes

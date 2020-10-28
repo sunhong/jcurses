@@ -3,6 +3,8 @@ jcurses
 
 Java Curses Library (JCurses)
 
+Fixed line comment syntax errors and fixed the Makefile to compile with java-8. Tested on Arch Linux
+
 website: http://javacurses.sourceforge.net/
 
 Run jcurses program in Windows Console, please set Code Page to 850.
